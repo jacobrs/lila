@@ -1,7 +1,7 @@
 package lila.game
 
 import lila.db.ByteArray
-import chess.Color
+import chess.Color.{ White, Black }
 import chess.UnmovedRooks
 import org.mockito.Mockito._
 import org.specs2.mutable._
@@ -25,47 +25,26 @@ class GameTest extends Specification {
   private val mockUnmovedRooks = new UnmovedRooks(Set())
 
   // Color values
-  private val white = Color.White
-  private val black = Color.Black
+  private val white = White
+  private val black = Black
 
   // Other
   var gameId = "22222"
 
   // Game instance
-  var game = new Game(
-    gameId,
-    mockWhitePlayer,
-    mockBlackPlayer,
-    byteArray1,
-    byteArray2,
-    null,
-    0,
-    0,
-    null,
-    null,
-    mockUnmovedRooks,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    0,
-    null,
-    null,
-    mockMetadata
-  )
+  var game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+    mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
 
   //-----------------
   //     TESTS
   //-----------------
 
   // player(color: Color)
-  "Player" should {
+  "Players" should {
     "have a defining color" in {
+      val game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+        mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
+
       game.player(white) must be(mockWhitePlayer)
       game.player(black) must be(mockBlackPlayer)
     }
@@ -74,39 +53,53 @@ class GameTest extends Specification {
   // opponent(p: Player), opponent(c: Color)
   "Opponent" should {
     "have opposite color" in {
+      val mockPlayer = mock(classOf[Player])
+      val game = new Game(gameId, mockPlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+        mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
+
       when(mockPlayer.color).thenReturn(white)
-      game.opponent(mockPlayer).color must be(Color.Black)
+      game.opponent(mockPlayer) must be(mockBlackPlayer)
     }
   }
 
-  // tournamentId, isTournament
   "Game" should {
+    // tournamentId, isTournament
     "be tournament" in {
+      val mockMetadata = mock(classOf[Metadata])
+      val game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+        mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
+
       when(mockMetadata.tournamentId).thenReturn(Some("123"))
       game.isTournament must beTrue
     }
-  }
-
-  // simulId, isSimul
-  "Simul" should {
+    // simulId, isSimul
     "be simul" in {
+      val mockMetadata = mock(classOf[Metadata])
+      val game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+        mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
+
       when(mockMetadata.simulId).thenReturn(Some("456"))
       game.isSimul must beTrue
     }
-  }
-
-  // isMandatory, nonMandatory
-  "Simul" should {
+    // isMandatory, nonMandatory
     "be mandatory if either a tournament or simul is defined" in {
+      val mockMetadata = mock(classOf[Metadata])
+      val game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+        mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
+
       when(mockMetadata.tournamentId).thenReturn(Some("123"))
+      when(mockMetadata.simulId).thenReturn(Some("456"))
       game.isMandatory must beTrue
       game.nonMandatory must beFalse
     }
-  }
-
-  // hasChat, hasAi, nonAi
-  "hasChat" should {
+    // hasChat, hasAi, nonAi
     "have a chat if non tourney, non simul, and no AI" in {
+      val mockMetadata = mock(classOf[Metadata])
+      val game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
+        mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
+
+      when(mockMetadata.tournamentId).thenReturn(None)
+      when(mockMetadata.simulId).thenReturn(None)
       when(mockWhitePlayer.isAi).thenReturn(false)
       when(mockBlackPlayer.isAi).thenReturn(false)
       game.hasAi must beFalse
