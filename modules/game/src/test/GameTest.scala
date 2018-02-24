@@ -22,7 +22,7 @@ class GameTest extends Specification {
   val byteArray2 = new ByteArray(Array())
 
   // Mock UnmovedRooks class (parameter for new Game)
-  private val mockUnmovedRooks = new UnmovedRooks(Set())
+  private val mockUnmovedRooks = UnmovedRooks(Set())
 
   // Color values
   private val white = White
@@ -71,6 +71,7 @@ class GameTest extends Specification {
 
       when(mockMetadata.tournamentId).thenReturn(Some("123"))
       game.isTournament must beTrue
+      game.hasChat must beFalse
     }
     // simulId, isSimul
     "be simul" in {
@@ -78,8 +79,10 @@ class GameTest extends Specification {
       val game = new Game(gameId, mockWhitePlayer, mockBlackPlayer, byteArray1, byteArray2, null, 0, 0, null, null,
         mockUnmovedRooks, null, null, null, null, null, null, null, null, null, 0, null, null, mockMetadata)
 
+      when(mockMetadata.tournamentId).thenReturn(None)
       when(mockMetadata.simulId).thenReturn(Some("456"))
       game.isSimul must beTrue
+      game.hasChat must beFalse
     }
     // isMandatory, nonMandatory
     "be mandatory if either a tournament or simul is defined" in {
@@ -91,6 +94,7 @@ class GameTest extends Specification {
       when(mockMetadata.simulId).thenReturn(Some("456"))
       game.isMandatory must beTrue
       game.nonMandatory must beFalse
+      game.hasChat must beFalse
     }
     // hasChat, hasAi, nonAi
     "have a chat if non tourney, non simul, and no AI" in {
