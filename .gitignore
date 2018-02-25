@@ -39,3 +39,4 @@ RUNNING_PID
 /modules/*/.settings/
 
 .idea/
+.DS_STORE
