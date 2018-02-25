@@ -38,4 +38,4 @@ RUNNING_PID
 /modules/*/.project
 /modules/*/.settings/
 
-.idea
+.idea/
