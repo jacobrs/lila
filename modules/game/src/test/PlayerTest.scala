@@ -22,10 +22,10 @@ class PlayerTest extends Specification {
   val mockUser = mock(classOf[User])
 
   //Glicko class
-  var mockGlicko = mock(classOf[Glicko])
+  val mockGlicko = mock(classOf[Glicko])
 
   //Perf class
-  var mockPerf = mock(classOf[lila.rating.Perf])
+  val mockPerf = mock(classOf[lila.rating.Perf])
   when(mockPerf.intRating).thenReturn(1337)
 
   //Tests
@@ -47,11 +47,11 @@ class PlayerTest extends Specification {
     "be a user and have a proper user id and rating" in {
       //mocking out the dependencies player needs to mark a player as a user
       val mockUser = mock(classOf[User])
-      var mockPerf = mock(classOf[lila.rating.Perf])
+      val mockPerf = mock(classOf[lila.rating.Perf])
       val mockGlicko = mock(classOf[Glicko])
 
-      var player = Player(playerId, mockColor, human)
-      var playerRating = 1
+      val playerTemp = Player(playerId, mockColor, human)
+      val playerRating = 1
 
       //stubbing out the mocked methods called in the player method
       when(mockUser.id).thenReturn(playerId)
@@ -59,7 +59,7 @@ class PlayerTest extends Specification {
       when(mockPerf.glicko).thenReturn(mockGlicko)
       when(mockGlicko.provisional).thenReturn(true)
 
-      player = player.withUser(playerId, mockPerf)
+      val player = playerTemp.withUser(playerId, mockPerf)
 
       //verify the stubs were called
       verify(mockPerf).intRating
@@ -75,13 +75,13 @@ class PlayerTest extends Specification {
     }
 
     "return proper UserInfo object" in {
-      var player = Player(playerId, mockColor, human)
+      val player = Player(playerId, mockColor, human)
 
       val mockUser = mock(classOf[User])
-      var mockPerf = mock(classOf[lila.rating.Perf])
+      val mockPerf = mock(classOf[lila.rating.Perf])
       val mockGlicko = mock(classOf[Glicko])
 
-      var playerRating = 1
+      val playerRating = 1
 
       //stubbing out the mocked methods called in the player method
       when(mockUser.id).thenReturn(playerId)
@@ -89,29 +89,29 @@ class PlayerTest extends Specification {
       when(mockPerf.glicko).thenReturn(mockGlicko)
       when(mockGlicko.provisional).thenReturn(true)
 
-      player = player.withUser(playerId, mockPerf)
+      val userPlayer = player.withUser(playerId, mockPerf)
 
-      val userInfo = player.userInfos.get
+      val userInfo = userPlayer.userInfos.get
 
-      userInfo.id must be equalTo (player.userId.get)
-      userInfo.rating must be equalTo (player.rating.get)
-      userInfo.provisional must be equalTo (player.provisional)
+      userInfo.id must be equalTo (userPlayer.userId.get)
+      userInfo.rating must be equalTo (userPlayer.rating.get)
+      userInfo.provisional must be equalTo (userPlayer.provisional)
     }
 
     "win the game" in {
-      var player1 = Player(playerId, mockColor, human)
-      var player2 = Player((playerId + 1), mockColor, human)
+      val player1Temp = Player(playerId, mockColor, human)
+      val player2 = Player((playerId + 1), mockColor, human)
 
-      player1 = player1.finish(true)
+      val player1 = player1Temp.finish(true)
       player1.wins must beTrue
       player2.wins must beFalse
 
     }
 
     "go berserk" in {
-      var player = Player(playerId, mockColor, human)
+      val playerTemp = Player(playerId, mockColor, human)
 
-      player = player.goBerserk
+      val player = playerTemp.goBerserk
 
       player.berserk must beTrue
     }
@@ -120,42 +120,42 @@ class PlayerTest extends Specification {
       val suspiciousHoldAlert = mock(classOf[HoldAlert])
       when(suspiciousHoldAlert.suspicious).thenReturn(true)
 
-      var player = Player(id = playerId, color = mockColor, aiLevel = human, blurs = Blurs.blursZero.zero, holdAlert = Some(suspiciousHoldAlert))
+      val player = Player(id = playerId, color = mockColor, aiLevel = human, blurs = Blurs.blursZero.zero, holdAlert = Some(suspiciousHoldAlert))
 
       player.hasSuspiciousHoldAlert must beTrue
       player.hasHoldAlert must beTrue
     }
 
     "change draw variables when player offers a draw or revmoves a draw offer" in {
-      var player = Player(playerId, mockColor, human)
+      val playerTemp = Player(playerId, mockColor, human)
 
-      player = player.offerDraw(2)
-      player.isOfferingDraw must beTrue
+      val playerDraw = playerTemp.offerDraw(2)
+      playerDraw.isOfferingDraw must beTrue
 
-      player = player.removeDrawOffer
-      player.isOfferingDraw must beFalse
+      val playerNoDraw = playerDraw.removeDrawOffer
+      playerNoDraw.isOfferingDraw must beFalse
     }
 
     "change rematch variables when player offers a rematch or removes a rematch offer" in {
-      var player = Player(playerId, mockColor, human)
+      val playerTemp = Player(playerId, mockColor, human)
 
-      player = player.offerRematch
-      player.isOfferingRematch must beTrue
+      val playerRematch = playerTemp.offerRematch
+      playerRematch.isOfferingRematch must beTrue
 
-      player = player.removeRematchOffer
-      player.isOfferingRematch must beFalse
+      val playerNoRematch = playerRematch.removeRematchOffer
+      playerNoRematch.isOfferingRematch must beFalse
     }
 
     "propose a takeback and remove a takeback proposition" in {
-      var player = Player(playerId, mockColor, human)
+      val playerTemp = Player(playerId, mockColor, human)
 
-      player = player.proposeTakeback(2)
-      player.proposeTakebackAt must be equalTo (2)
-      player.isProposingTakeback must beTrue
+      val playerTakeback = playerTemp.proposeTakeback(2)
+      playerTakeback.proposeTakebackAt must be equalTo (2)
+      playerTakeback.isProposingTakeback must beTrue
 
-      player = player.removeTakebackProposition
-      player.proposeTakebackAt must be equalTo (0)
-      player.isProposingTakeback must beFalse
+      val playerNoTakeback = playerTakeback.removeTakebackProposition
+      playerNoTakeback.proposeTakebackAt must be equalTo (0)
+      playerNoTakeback.isProposingTakeback must beFalse
 
     }
 
@@ -166,11 +166,11 @@ class PlayerTest extends Specification {
       when(mockPerf.glicko).thenReturn(mockGlicko)
       when(mockUser.username).thenReturn("MockedUsername")
 
-      var player = Player(playerId, mockColor, human)
-      player = player.withUser(mockUser.id, mockPerf)
+      val playerTemp = Player(playerId, mockColor, human)
+      val playerUser = playerTemp.withUser(mockUser.id, mockPerf)
 
-      player = player.withName(mockUser.username)
-      player.name must beSome[String]("MockedUsername")
+      val playerNamed = playerUser.withName(mockUser.username)
+      playerNamed.name must beSome[String]("MockedUsername")
     }
 
     "return their currrent and after ratings" in {
@@ -179,10 +179,10 @@ class PlayerTest extends Specification {
       when(mockUser.id).thenReturn("1234")
       when(mockPerf.glicko).thenReturn(mockGlicko)
 
-      var player = Player(id = playerId, color = mockColor, aiLevel = human, ratingDiff = Option(3))
+      val playerTemp = Player(id = playerId, color = mockColor, aiLevel = human, ratingDiff = Option(3))
 
       //Associate player with a mocked user
-      player = player.withUser(mockUser.id, mockPerf)
+      val player = playerTemp.withUser(mockUser.id, mockPerf)
 
       player.rating must be equalTo (Option(1337))
       player.ratingAfter must be equalTo (Option(1340))
@@ -197,11 +197,11 @@ class PlayerTest extends Specification {
       when(mockPerf.glicko).thenReturn(mockGlicko)
       when(mockPerf.intRating).thenReturn(1337)
 
-      var player1 = Player(id = playerId, color = mockColor, aiLevel = human,
+      val player1Temp = Player(id = playerId, color = mockColor, aiLevel = human,
         ratingDiff = Option(3), provisional = mockGlicko.provisional)
 
       //Associate player with a mocked user
-      player1 = player1.withUser(mockUser.id, mockPerf)
+      val player1 = player1Temp.withUser(mockUser.id, mockPerf)
 
       player1.rating must be equalTo (Option(1337))
       player1.stableRating must beSome[Int](1337)
@@ -213,11 +213,11 @@ class PlayerTest extends Specification {
       when(mockUser.id).thenReturn("5678")
       when(mockPerf.glicko).thenReturn(mockGlicko)
 
-      var player2 = Player(id = playerId, color = mockColor, aiLevel = human,
+      val player2Temp = Player(id = playerId, color = mockColor, aiLevel = human,
         ratingDiff = Option(3), provisional = mockGlicko.provisional)
 
       //Associate player with a mocked user
-      player2 = player2.withUser(mockUser.id, mockPerf)
+      val player2 = player2Temp.withUser(mockUser.id, mockPerf)
 
       player2.rating must be equalTo (Option(1337))
       player2.stableRating must be equalTo (None)
