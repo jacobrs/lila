@@ -11,8 +11,7 @@ object Dependencies {
     val awesomepom = "awesomepom" at "https://raw.githubusercontent.com/jibs/maven-repo-scala/master"
     val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
-
-
+    
     val commons = Seq(
       sonatypeS,
       lilaMaven,
