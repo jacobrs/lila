@@ -181,8 +181,12 @@ lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
     )
 )
 
-lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
+/*lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
+)*/
+lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees),
+  libraryDependencies += mockito
 )
 
 lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(

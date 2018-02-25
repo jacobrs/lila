@@ -12,6 +12,7 @@ object Dependencies {
     val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
     val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
+
     val commons = Seq(
       sonatypeS,
       lilaMaven,
@@ -22,6 +23,7 @@ object Dependencies {
     )
   }
 
+  val mockito = "org.mockito" % "mockito-core" % "1.10.19" % "test"
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.16"
   val scalalib = "com.github.ornicar" %% "scalalib" % "6.5"
   val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
