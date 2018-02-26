@@ -24,12 +24,12 @@ class EventTest extends Specification {
     val event = Event.Promotion(mockRole, mockPos)
 
     "contain proper json structure as data" in {
-      (event.data \ "key").as[String] must_== posKey
-      (event.data \ "pieceClass").as[String] must_== roleName
+      (event.data \ "key").as[String] must beEqualTo(posKey)
+      (event.data \ "pieceClass").as[String] must beEqualTo(roleName)
     }
 
     "have type be promotion" in {
-      event.typ must_== "promotion"
+      event.typ must beEqualTo("promotion")
     }
   }
 
@@ -37,12 +37,12 @@ class EventTest extends Specification {
     val event = Event.Enpassant(mockPos, mockColor)
 
     "contain proper json structure as data" in {
-      (event.data \ "key").as[String] must_== posKey
+      (event.data \ "key").as[String] must beEqualTo(posKey)
       event.data.keys.contains("color") must beTrue
     }
 
     "have type be enpassant" in {
-      event.typ must_== "enpassant"
+      event.typ must beEqualTo("enpassant")
     }
   }
 
@@ -50,13 +50,13 @@ class EventTest extends Specification {
     val event = Event.Castling((mockPos, mockPos), (mockPos, mockPos), mockColor)
 
     "contain proper json structure as data" in {
-      (event.data \ "king").as[List[String]] must_== List(posKey, posKey)
-      (event.data \ "rook").as[List[String]] must_== List(posKey, posKey)
+      (event.data \ "king").as[List[String]] must beEqualTo(List(posKey, posKey))
+      (event.data \ "rook").as[List[String]] must beEqualTo(List(posKey, posKey))
       event.data.keys.contains("color") must beTrue
     }
 
     "have type be castling" in {
-      event.typ must_== "castling"
+      event.typ must beEqualTo("castling")
     }
   }
 
@@ -68,7 +68,7 @@ class EventTest extends Specification {
     }
 
     "have type be TakebackOffers" in {
-      event.typ must_== "takebackOffers"
+      event.typ must beEqualTo("takebackOffers")
     }
 
     "have owner" in {
@@ -80,12 +80,12 @@ class EventTest extends Specification {
     val event = Event.CheckCount(1, 2)
 
     "contain proper json structure as data" in {
-      (event.data \ "white").as[Int] must_== 1
-      (event.data \ "black").as[Int] must_== 2
+      (event.data \ "white").as[Int] must beEqualTo(1)
+      (event.data \ "black").as[Int] must beEqualTo(2)
     }
 
     "have type be checkCount" in {
-      event.typ must_== "checkCount"
+      event.typ must beEqualTo("checkCount")
     }
   }
 
@@ -93,23 +93,23 @@ class EventTest extends Specification {
     val event = Event.CorrespondenceClock(1.1f, 2.2f)
 
     "contain proper json structure as data" in {
-      (event.data \ "white").as[Float] must_== 1.1f
-      (event.data \ "black").as[Float] must_== 2.2f
+      (event.data \ "white").as[Float] must beEqualTo(1.1f)
+      (event.data \ "black").as[Float] must beEqualTo(2.2f)
     }
 
     "have type be cclock" in {
-      event.typ must_== "cclock"
+      event.typ must beEqualTo("cclock")
     }
   }
   "Start event" should {
     val startEvent = Event.Start
 
     "contain null data" in {
-      startEvent.data must_== JsNull
+      startEvent.data must beEqualTo(JsNull)
     }
 
     "have type be start" in {
-      startEvent.typ must_== "start"
+      startEvent.typ must beEqualTo("start")
     }
   }
 
@@ -117,11 +117,11 @@ class EventTest extends Specification {
     val premoveEvent = Event.Premove(mockColor)
 
     "contain null data" in {
-      premoveEvent.data must_== JsNull
+      premoveEvent.data must beEqualTo(JsNull)
     }
 
     "have type be premove" in {
-      premoveEvent.typ must_== "premove"
+      premoveEvent.typ must beEqualTo("premove")
     }
   }
 
@@ -129,11 +129,11 @@ class EventTest extends Specification {
     val reloadEvent = Event.Reload
 
     "contain null data" in {
-      reloadEvent.data must_== JsNull
+      reloadEvent.data must beEqualTo(JsNull)
     }
 
     "have type be reload" in {
-      reloadEvent.typ must_== "reload"
+      reloadEvent.typ must beEqualTo("reload")
     }
   }
 
@@ -141,11 +141,11 @@ class EventTest extends Specification {
     val reloadEvent = Event.ReloadOwner
 
     "contain null data" in {
-      reloadEvent.data must_== JsNull
+      reloadEvent.data must beEqualTo(JsNull)
     }
 
     "have type be reload" in {
-      reloadEvent.typ must_== "reload"
+      reloadEvent.typ must beEqualTo("reload")
     }
     "have owner" in {
       reloadEvent.owner must beTrue
