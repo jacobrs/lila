@@ -14,6 +14,7 @@ final class Env(
 
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
+    val CollectionPuzzleMigration = config getString "collection.puzzle_migrated"
     val CollectionRound = config getString "collection.round"
     val CollectionVote = config getString "collection.vote"
     val CollectionHead = config getString "collection.head"
@@ -34,6 +35,7 @@ final class Env(
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
+    puzzleMigrationColl = puzzleColl,
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
@@ -81,6 +83,7 @@ final class Env(
   }
 
   private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
+  private[puzzle] lazy val puzzleMigrationColl = db(CollectionPuzzleMigration)
   private[puzzle] lazy val roundColl = db(CollectionRound)
   private[puzzle] lazy val voteColl = db(CollectionVote)
   private[puzzle] lazy val headColl = db(CollectionHead)
