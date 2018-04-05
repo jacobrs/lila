@@ -17,10 +17,10 @@ class PuzzleTest extends Specification {
     Logger.logger.debug(ConfigFactory.load("base.conf").getString("mongodb.uri"))
     Play.start(application)
     db = lila.puzzle.Env.current
+
   }
 
   step {
-    val config: Config = ConfigFactory.load("base.conf")
 
     val testString = "test"
     val testBool = false
