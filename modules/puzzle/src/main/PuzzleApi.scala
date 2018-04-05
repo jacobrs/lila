@@ -54,6 +54,7 @@ private[puzzle] final class PuzzleApi(
         insertPuzzle(json.as[Generated])
       }
 
+    //For Generated
     def newInsertPuzzle(generated: Generated): Fu[PuzzleId] = {
       lila.db.Util findNextId puzzleMigrationColl flatMap { id =>
         val p = generated toPuzzle id
@@ -63,6 +64,20 @@ private[puzzle] final class PuzzleApi(
           F.fen.$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
           case false => puzzleMigrationColl insert p inject id
+          case _ => fufail(s"Duplicate puzzle $fenStart")
+        }
+      }
+    }
+
+    //For Puzzle
+    def newInsertPuzzle(puzzle: Puzzle): Fu[PuzzleId] = {
+      lila.db.Util findNextId puzzleMigrationColl flatMap { id =>
+        val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
+        puzzleMigrationColl.exists($doc(
+          F.id -> $gte(puzzleIdMin),
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
+        )) flatMap {
+          case false => puzzleMigrationColl insert puzzle inject id
           case _ => fufail(s"Duplicate puzzle $fenStart")
         }
       }
@@ -83,9 +98,23 @@ private[puzzle] final class PuzzleApi(
 
     }
 
+    def insertPuzzle(puzzle: Puzzle): Fu[PuzzleId] = {
+      lila.db.Util findNextId puzzleColl flatMap { id =>
+        val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
+        puzzleColl.exists($doc(
+          F.id -> $gte(puzzleIdMin),
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
+        )) flatMap {
+          case false => puzzleColl insert puzzle inject id
+          case _ => fufail(s"Duplicate puzzle $fenStart")
+        }
+      }
+    }
+
+
     def consistencyChecker(): Unit ={
       //Track inconsistencies
-      val inconsistencies = 0
+      var inconsistencies = 0
 
       //Get data from the old table
       val oldData = Await.result(fetchAll, Duration.create(5, "seconds"))
@@ -96,23 +125,14 @@ private[puzzle] final class PuzzleApi(
       //For each puzzle data in the old data, check that it matches the new data
       //For every puzzle in old data,
       //check that that puzzle id exists in new table with the correct game id
-
-      /*
-      oldDataList.foreach {
-       if newDataList contains(_)
-
-      }
-      */
       var a = 0
-      for(a <-1 to oldDataList.size){
+      for(a <- 0 to oldDataList.size-1){
         val item = oldDataList(a)
         if (!(newDataList contains item)){
-
+          newInsertPuzzle(item)
+          inconsistencies += 1
         }
-
       }
-
-
     }
 
     def fetchAll() = for {
