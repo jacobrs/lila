@@ -12,7 +12,9 @@ final class Env(
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
-  private val settings = new {
+  val publicAsyncCache = asyncCache
+
+  val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
     val CollectionPuzzleMigration = config getString "collection.puzzle_migrated"
     val CollectionRound = config getString "collection.round"
@@ -84,9 +86,9 @@ final class Env(
 
   lazy val puzzleColl = db(CollectionPuzzle)
   lazy val puzzleMigrationColl = db(CollectionPuzzleMigration)
-  private[puzzle] lazy val roundColl = db(CollectionRound)
-  private[puzzle] lazy val voteColl = db(CollectionVote)
-  private[puzzle] lazy val headColl = db(CollectionHead)
+  lazy val roundColl = db(CollectionRound)
+  lazy val voteColl = db(CollectionVote)
+  lazy val headColl = db(CollectionHead)
 }
 
 object Env {
