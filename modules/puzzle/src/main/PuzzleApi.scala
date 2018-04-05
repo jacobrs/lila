@@ -92,11 +92,22 @@ private[puzzle] final class PuzzleApi(
       //For each puzzle data in the old data, check that it matches the new data
       //For every puzzle in old data,
       //check that that puzzle id exists in new table with the correct game id
+
       /*
       oldDataList.foreach {
        if newDataList contains(_)
+
       }
       */
+      var a = 0
+      for(a <-1 to oldDataList.size){
+        val item = oldDataList(a)
+        if (!(newDataList contains item)){
+
+        }
+
+      }
+
 
     }
 
