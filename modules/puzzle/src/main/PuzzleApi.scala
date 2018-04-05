@@ -155,6 +155,19 @@ private[puzzle] final class PuzzleApi(
       }
     }
 
+    def forklift(): Unit = {
+      //get old data
+      // assume moving the entire old db
+      val oldData = Await.result(fetchAll, Duration.create(5, "seconds"))
+      val oldDataList = oldData.flatten
+
+      //move all the old data to the new database
+      for(a <- 0 to oldDataList.size-1){
+        newInsertPuzzle(oldDataList(a))
+      }
+
+    }
+
     def fetchAll() = for {
       oldData <- findAll()
     } yield oldData
