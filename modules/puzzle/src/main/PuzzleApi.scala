@@ -54,6 +54,20 @@ private[puzzle] final class PuzzleApi(
         insertPuzzle(json.as[Generated])
       }
 
+    def newInsertPuzzle(generated: Generated): Fu[PuzzleId] = {
+      lila.db.Util findNextId puzzleMigrationColl flatMap { id =>
+        val p = generated toPuzzle id
+        val fenStart = p.fen.split(' ').take(2).mkString(" ")
+        puzzleMigrationColl.exists($doc(
+          F.id -> $gte(puzzleIdMin),
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
+        )) flatMap {
+          case false => puzzleMigrationColl insert p inject id
+          case _ => fufail(s"Duplicate puzzle $fenStart")
+        }
+      }
+    }
+
     def insertPuzzle(generated: Generated): Fu[PuzzleId] = {
       lila.db.Util findNextId puzzleColl flatMap { id =>
         val p = generated toPuzzle id
@@ -66,17 +80,7 @@ private[puzzle] final class PuzzleApi(
           case _ => fufail(s"Duplicate puzzle $fenStart")
         }
       }
-      lila.db.Util findNextId puzzleMigrationColl flatMap { id =>
-        val p = generated toPuzzle id
-        val fenStart = p.fen.split(' ').take(2).mkString(" ")
-        puzzleMigrationColl.exists($doc(
-          F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), "")
-        )) flatMap {
-          case false => puzzleMigrationColl insert p inject id
-          case _ => fufail(s"Duplicate puzzle $fenStart")
-        }
-      }
+
     }
 
     def consistencyChecker(): Unit ={
