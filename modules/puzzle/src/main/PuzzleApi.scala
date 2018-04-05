@@ -97,20 +97,6 @@ final class PuzzleApi(
       }
     }
 
-    //For Puzzle
-    def newInsertPuzzle(puzzle: Puzzle): Fu[PuzzleId] = {
-      lila.db.Util findNextId puzzleMigrationColl flatMap { id =>
-        val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
-        puzzleMigrationColl.exists($doc(
-          F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), "")
-        )) flatMap {
-          case false => puzzleMigrationColl insert puzzle inject id
-          case _ => fufail(s"Duplicate puzzle $fenStart")
-        }
-      }
-    }
-
     // Write method
     def insertPuzzle(generated: Generated): Fu[PuzzleId] = {
       lila.db.Util findNextId puzzleColl flatMap { id =>
@@ -128,7 +114,21 @@ final class PuzzleApi(
       newInsertPuzzle(generated)
     }
 
-    def insertPuzzle(puzzle: Puzzle): Fu[PuzzleId] = {
+    //For Puzzle
+    def insertPuzzleToNew(puzzle: Puzzle): Fu[PuzzleId] = {
+      lila.db.Util findNextId puzzleMigrationColl flatMap { id =>
+        val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
+        puzzleMigrationColl.exists($doc(
+          F.id -> $gte(puzzleIdMin),
+          F.fen.$regex(fenStart.replace("/", "\\/"), "")
+        )) flatMap {
+          case false => puzzleMigrationColl insert puzzle inject id
+          case _ => fufail(s"Duplicate puzzle $fenStart")
+        }
+      }
+    }
+
+    def insertPuzzleToOld(puzzle: Puzzle): Fu[PuzzleId] = {
       lila.db.Util findNextId puzzleColl flatMap { id =>
         val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
@@ -140,60 +140,56 @@ final class PuzzleApi(
         }
       }
       // Call Shadow write method
-      newInsertPuzzle(puzzle)
+      insertPuzzleToNew(puzzle)
     }
 
-    //    def shadowWriteConsistencyChecker(puzzle: Puzzle): Int = {
-    //      var inconsistency = 0
-    //
-    //      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
-    //      val oldDataList = oldData.flatten
-    //
-    //      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
-    //      val newDataList = newData.flatten
-    //
-    //      if (oldDataList contains puzzle)
-    //        if (!(newDataList contains puzzle))
-    //          inconsistency = 1
-    //
-    //      inconsistency
-    //    }
-    //
-    //    def consistencyChecker(): Unit = {
-    //      //Track inconsistencies
-    //      var inconsistencies = 0
-    //
-    //      //Get data from the old table
-    //      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
-    //      val oldDataList = oldData.flatten
-    //      //Get data from the new table
-    //      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
-    //      val newDataList = newData.flatten
-    //      //For each puzzle data in the old data, check that it matches the new data
-    //      //For every puzzle in old data,
-    //      //check that that puzzle id exists in new table with the correct game id
-    //      var a = 0
-    //      for (a <- oldDataList.indices) {
-    //        val item = oldDataList(a)
-    //        if (!(newDataList contains item)) {
-    //          newInsertPuzzle(item)
-    //          inconsistencies += 1
-    //        }
-    //      }
-    //    }
+    def shadowWriteConsistencyChecker(puzzle: Puzzle): Int = {
+      var inconsistency = 0
 
-    //    def forklift(): Unit = {
-    //      //get old data
-    //      // assume moving the entire old db
-    //      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
-    //      val oldDataList = oldData.flatten
-    //
-    //      //move all the old data to the new database
-    //      for (a <- oldDataList.indices) {
-    //        newInsertPuzzle(oldDataList(a))
-    //      }
-    //
-    //    }
+      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+
+      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+
+      if (oldData contains puzzle)
+        if (!(newData contains puzzle))
+          inconsistency = 1
+
+      inconsistency
+    }
+
+    def consistencyChecker(): Unit = {
+      //Track inconsistencies
+      var inconsistencies = 0
+
+      //Get data from the old table
+      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+
+      //Get data from the new table
+      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+
+      //For each puzzle data in the old data, check that it matches the new data
+      //For every puzzle in old data,
+      //check that that puzzle id exists in new table with the correct game id
+      var a = 0
+      for (a <- oldData.indices) {
+        val item = oldData(a)
+        if (!(newData contains item)) {
+          insertPuzzleToNew(item)
+          inconsistencies += 1
+        }
+      }
+    }
+
+    def forklift(): Unit = {
+      //get old data
+      // assume moving the entire old db
+      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+
+      //move all the old data to the new database
+      for (a <- oldData.indices) {
+        insertPuzzleToNew(oldData(a))
+      }
+    }
 
     def fetchAll(): Future[List[Puzzle]] = for {
       oldData <- findAll()
