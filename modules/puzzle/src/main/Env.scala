@@ -82,8 +82,8 @@ final class Env(
     }
   }
 
-  private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
-  private[puzzle] lazy val puzzleMigrationColl = db(CollectionPuzzleMigration)
+  lazy val puzzleColl = db(CollectionPuzzle)
+  lazy val puzzleMigrationColl = db(CollectionPuzzleMigration)
   private[puzzle] lazy val roundColl = db(CollectionRound)
   private[puzzle] lazy val voteColl = db(CollectionVote)
   private[puzzle] lazy val headColl = db(CollectionHead)

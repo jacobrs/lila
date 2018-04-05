@@ -1,12 +1,12 @@
 package lila.puzzle
 
 import scala.concurrent.duration._
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{ JsValue, Json }
 import lila.db.dsl._
 import lila.user.User
-import Puzzle.{BSONFields => F}
+import Puzzle.{ BSONFields => F }
 
-import scala.concurrent.Await
+import scala.concurrent.{ Await, Future }
 
 final class PuzzleApi(
     puzzleColl: Coll,
@@ -24,27 +24,31 @@ final class PuzzleApi(
   object puzzle {
 
     // Read
-    def find(id: PuzzleId): Fu[Option[Puzzle]] =
+    def find(id: PuzzleId): Fu[Option[Puzzle]] = {
       newFind(id) // Call shadow read method
       puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
+    }
 
     // Read
-    def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
+    def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] = {
       newFindMany(ids) // Call shadow read method
       puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
+    }
 
     // Read
-    def findAll(): Fu[List[Option[Puzzle]]] =
+    def findAll(): Fu[List[Puzzle]] = {
       findAllNew() // Call shadow read method
-      puzzleColl.find(Json.obj()).list[Option[Puzzle]]()
+      puzzleColl.find($empty).list[Puzzle]()
+    }
 
     // Read
-    def latest(nb: Int): Fu[List[Puzzle]] =
+    def latest(nb: Int): Fu[List[Puzzle]] = {
       newLatest(nb) // Call shadow read method
       puzzleColl.find($empty)
         .sort($doc(F.date -> -1))
         .cursor[Puzzle]()
         .gather[List](nb)
+    }
 
     // Shadow read
     def newFind(id: PuzzleId): Fu[Option[Puzzle]] =
@@ -55,8 +59,8 @@ final class PuzzleApi(
       puzzleMigrationColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
 
     // Shadow read
-    def findAllNew(): Fu[List[Option[Puzzle]]] =
-      puzzleMigrationColl.find(Json.obj()).list[Option[Puzzle]]()
+    def findAllNew(): Fu[List[Puzzle]] =
+      puzzleMigrationColl.find($empty).list[Puzzle]()
 
     // Shadow read
     def newLatest(nb: Int): Fu[List[Puzzle]] =
@@ -139,65 +143,65 @@ final class PuzzleApi(
       newInsertPuzzle(puzzle)
     }
 
-    def shadowWriteConsistencyChecker(puzzle: Puzzle): Unit = {
-      var inconsistency = 0;
+    //    def shadowWriteConsistencyChecker(puzzle: Puzzle): Int = {
+    //      var inconsistency = 0
+    //
+    //      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+    //      val oldDataList = oldData.flatten
+    //
+    //      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+    //      val newDataList = newData.flatten
+    //
+    //      if (oldDataList contains puzzle)
+    //        if (!(newDataList contains puzzle))
+    //          inconsistency = 1
+    //
+    //      inconsistency
+    //    }
+    //
+    //    def consistencyChecker(): Unit = {
+    //      //Track inconsistencies
+    //      var inconsistencies = 0
+    //
+    //      //Get data from the old table
+    //      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+    //      val oldDataList = oldData.flatten
+    //      //Get data from the new table
+    //      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+    //      val newDataList = newData.flatten
+    //      //For each puzzle data in the old data, check that it matches the new data
+    //      //For every puzzle in old data,
+    //      //check that that puzzle id exists in new table with the correct game id
+    //      var a = 0
+    //      for (a <- oldDataList.indices) {
+    //        val item = oldDataList(a)
+    //        if (!(newDataList contains item)) {
+    //          newInsertPuzzle(item)
+    //          inconsistencies += 1
+    //        }
+    //      }
+    //    }
 
-      val oldData = Await.result(fetchAll, Duration.create(5, "seconds"))
-      val oldDataList = oldData.flatten
+    //    def forklift(): Unit = {
+    //      //get old data
+    //      // assume moving the entire old db
+    //      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+    //      val oldDataList = oldData.flatten
+    //
+    //      //move all the old data to the new database
+    //      for (a <- oldDataList.indices) {
+    //        newInsertPuzzle(oldDataList(a))
+    //      }
+    //
+    //    }
 
-      val newData =  Await.result(fetchAllNew, Duration.create(5,"seconds"))
-      val newDataList = newData.flatten
-
-      if (oldDataList contains puzzle)
-        if (!(newDataList contains puzzle))
-          inconsistency = 1
-
-      return inconsistency
-    }
-
-    def consistencyChecker(): Unit ={
-      //Track inconsistencies
-      var inconsistencies = 0
-
-      //Get data from the old table
-      val oldData = Await.result(fetchAll, Duration.create(5, "seconds"))
-      val oldDataList = oldData.flatten
-      //Get data from the new table
-      val newData =  Await.result(fetchAllNew, Duration.create(5,"seconds"))
-      val newDataList = newData.flatten
-      //For each puzzle data in the old data, check that it matches the new data
-      //For every puzzle in old data,
-      //check that that puzzle id exists in new table with the correct game id
-      var a = 0
-      for(a <- 0 to oldDataList.size-1){
-        val item = oldDataList(a)
-        if (!(newDataList contains item)){
-          newInsertPuzzle(item)
-          inconsistencies += 1
-        }
-      }
-    }
-
-    def forklift(): Unit = {
-      //get old data
-      // assume moving the entire old db
-      val oldData = Await.result(fetchAll, Duration.create(5, "seconds"))
-      val oldDataList = oldData.flatten
-
-      //move all the old data to the new database
-      for(a <- 0 to oldDataList.size-1){
-        newInsertPuzzle(oldDataList(a))
-      }
-
-    }
-
-    def fetchAll() = for {
+    def fetchAll(): Future[List[Puzzle]] = for {
       oldData <- findAll()
     } yield oldData
 
-    def fetchAllNew() = for{
+    def fetchAllNew(): Future[List[Puzzle]] = for {
       newData <- findAllNew()
-    }yield newData
+    } yield newData
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find($doc(F.mate -> mate))

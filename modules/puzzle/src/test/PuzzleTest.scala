@@ -1,31 +1,51 @@
 package lila.puzzle
 
+import com.typesafe.config.{ Config, ConfigFactory }
 import org.specs2.mutable._
-import lila.puzzle.PuzzleApi
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.{ Application, Mode, Play }
 
 class PuzzleTest extends Specification {
 
-  val testString = "test"
-  val testBool = false
+  var application: Application = _
+  var db: Env = _
 
-  private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
+  step {
+    application = new GuiceApplicationBuilder().in(Mode.Test).build()
+    Play.start(application)
+    db = lila.puzzle.Env.current
+  }
 
+  step {
+    val config: Config = ConfigFactory.load()
 
-  val puzzle1 = Puzzle(1, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle2 = Puzzle(2, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle3 = Puzzle(3, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle4 = Puzzle(4, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle5 = Puzzle(5, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle6 = Puzzle(6, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle7 = Puzzle(7, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle8 = Puzzle(8, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
-  val puzzle9 = Puzzle(9, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val testString = "test"
+    val testBool = false
 
-  private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
-  private[puzzle] lazy val puzzleMigrationColl = db(CollectionPuzzleMigration)
+    val puzzle1 = Puzzle(1, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle2 = Puzzle(2, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle3 = Puzzle(3, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle4 = Puzzle(4, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle5 = Puzzle(5, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle6 = Puzzle(6, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle7 = Puzzle(7, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle8 = Puzzle(8, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
+    val puzzle9 = Puzzle(9, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
 
-  lazy val api = new PuzzleApi(
-    puzzleColl = puzzleColl,
-    puzzleMigrationColl = puzzleColl,
-    null, null, null, null, null, null)
+    lazy val api = new PuzzleApi(
+      puzzleColl = db.puzzleColl,
+      puzzleMigrationColl = db.puzzleMigrationColl,
+      null, null, null, Predef.Integer2int(null), null, null
+    )
+
+    "the api" should {
+      "not be null" in {
+        api shouldNotEqual null
+      }
+    }
+  }
+
+  step {
+    Play.stop(application)
+  }
 }
