@@ -32,14 +32,15 @@ private[puzzle] final class PuzzleApi(
     def findAll(): Fu[List[Option[Puzzle]]] =
       puzzleColl.find(Json.obj()).list[Option[Puzzle]]()
 
-    def findAllNew(): Fu[List[Option[Puzzle]]] =
-      puzzleMigrationColl.find(Json.obj()).list[Option[Puzzle]]()
-
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl.find($empty)
         .sort($doc(F.date -> -1))
         .cursor[Puzzle]()
         .gather[List](nb)
+
+    // Shadow read
+    def findAllNew(): Fu[List[Option[Puzzle]]] =
+      puzzleMigrationColl.find(Json.obj()).list[Option[Puzzle]]()
 
     val cachedLastId = asyncCache.single(
       name = "puzzle.lastId",
@@ -83,6 +84,7 @@ private[puzzle] final class PuzzleApi(
       }
     }
 
+    // Write method
     def insertPuzzle(generated: Generated): Fu[PuzzleId] = {
       lila.db.Util findNextId puzzleColl flatMap { id =>
         val p = generated toPuzzle id
@@ -95,7 +97,8 @@ private[puzzle] final class PuzzleApi(
           case _ => fufail(s"Duplicate puzzle $fenStart")
         }
       }
-
+      // Call Shadow write method
+      newInsertPuzzle(generated)
     }
 
     def insertPuzzle(puzzle: Puzzle): Fu[PuzzleId] = {
@@ -109,8 +112,25 @@ private[puzzle] final class PuzzleApi(
           case _ => fufail(s"Duplicate puzzle $fenStart")
         }
       }
+      // Call Shadow write method
+      newInsertPuzzle(puzzle)
     }
 
+    def shadowWriteConsistencyChecker(puzzle: Puzzle): Unit = {
+      var inconsistency = 0;
+
+      val oldData = Await.result(fetchAll, Duration.create(5, "seconds"))
+      val oldDataList = oldData.flatten
+
+      val newData =  Await.result(fetchAllNew, Duration.create(5,"seconds"))
+      val newDataList = newData.flatten
+
+      if (oldDataList contains puzzle)
+        if (!(newDataList contains puzzle))
+          inconsistency = 1
+
+      return inconsistency
+    }
 
     def consistencyChecker(): Unit ={
       //Track inconsistencies
@@ -142,7 +162,6 @@ private[puzzle] final class PuzzleApi(
     def fetchAllNew() = for{
       newData <- findAllNew()
     }yield newData
-
 
     def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
       puzzleColl.find($doc(F.mate -> mate))
