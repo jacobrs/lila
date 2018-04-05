@@ -23,24 +23,47 @@ private[puzzle] final class PuzzleApi(
 
   object puzzle {
 
+    // Read
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
+      newFind(id) // Call shadow read method
       puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
 
+    // Read
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
+      newFindMany(ids) // Call shadow read method
       puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
 
+    // Read
     def findAll(): Fu[List[Option[Puzzle]]] =
+      findAllNew() // Call shadow read method
       puzzleColl.find(Json.obj()).list[Option[Puzzle]]()
 
+    // Read
     def latest(nb: Int): Fu[List[Puzzle]] =
+      newLatest(nb) // Call shadow read method
       puzzleColl.find($empty)
         .sort($doc(F.date -> -1))
         .cursor[Puzzle]()
         .gather[List](nb)
 
     // Shadow read
+    def newFind(id: PuzzleId): Fu[Option[Puzzle]] =
+      puzzleMigrationColl.find($doc(F.id -> id)).uno[Puzzle]
+
+    // Shadow read
+    def newFindMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
+      puzzleMigrationColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
+
+    // Shadow read
     def findAllNew(): Fu[List[Option[Puzzle]]] =
       puzzleMigrationColl.find(Json.obj()).list[Option[Puzzle]]()
+
+    // Shadow read
+    def newLatest(nb: Int): Fu[List[Puzzle]] =
+      puzzleMigrationColl.find($empty)
+        .sort($doc(F.date -> -1))
+        .cursor[Puzzle]()
+        .gather[List](nb)
 
     val cachedLastId = asyncCache.single(
       name = "puzzle.lastId",
