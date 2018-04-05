@@ -8,7 +8,7 @@ import Puzzle.{BSONFields => F}
 
 import scala.concurrent.Await
 
-private[puzzle] final class PuzzleApi(
+final class PuzzleApi(
     puzzleColl: Coll,
     puzzleMigrationColl: Coll,
     roundColl: Coll,
