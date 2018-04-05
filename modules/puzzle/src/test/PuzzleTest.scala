@@ -3,7 +3,7 @@ package lila.puzzle
 import com.typesafe.config.{ Config, ConfigFactory }
 import org.specs2.mutable._
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.{ Application, Mode, Play }
+import play.api._
 
 class PuzzleTest extends Specification {
 
@@ -11,13 +11,16 @@ class PuzzleTest extends Specification {
   var db: Env = _
 
   step {
-    application = new GuiceApplicationBuilder().in(Mode.Test).build()
+    application = new GuiceApplicationBuilder().loadConfig(
+      Configuration(ConfigFactory.load("base.conf"))
+    ).in(Mode.Test).build()
+    Logger.logger.debug(ConfigFactory.load("base.conf").getString("mongodb.uri"))
     Play.start(application)
     db = lila.puzzle.Env.current
   }
 
   step {
-    val config: Config = ConfigFactory.load()
+    val config: Config = ConfigFactory.load("base.conf")
 
     val testString = "test"
     val testBool = false
