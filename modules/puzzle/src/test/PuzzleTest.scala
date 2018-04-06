@@ -10,9 +10,12 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api._
 
 import scala.collection.mutable.ListBuffer
+import scala.concurrent.duration.Duration
+import scala.concurrent.{ Await, ExecutionContext, ExecutionContextExecutor }
 
 class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
 
+  implicit var ec: ExecutionContext = _
   var application: Application = _
   var db: Env = _
 
@@ -26,7 +29,7 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     db.roundColl,
     db.voteColl,
     db.headColl,
-    Predef.Integer2int(1),
+    db.puzzleIdMin,
     db.publicAsyncCache,
     db.settings.ApiToken
   )
@@ -38,6 +41,7 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     Logger.logger.debug(ConfigFactory.load("base.conf").getString("mongodb.uri"))
     Play.start(application)
     db = lila.puzzle.Env.current
+    ec = application.injector.instanceOf[ExecutionContext]
 
     for (i <- 1 to 9)
       puzzleListBuffer += Puzzle(i, testString, null, testString, null, 1, null, null, null, null, 1, testBool)
@@ -60,21 +64,22 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     "detect an inconsistency in the new database" in {
       api.puzzle.forklift()
 
-      val inconsistentPuzzle = Puzzle(22, testString, null, testString, null, 1, null, null, null, null, 1, testBool);
-      api.puzzle.insertPuzzleToOld(inconsistentPuzzle)
+      val inconsistentPuzzle = Puzzle.make(testString, null, null, null, List.empty[Line], testBool)(22);
+
+      Await.result(api.puzzle.insertPuzzleToOld(inconsistentPuzzle), Duration.Inf)
 
       1 must be equalTo api.puzzle.consistencyChecker()
     }
 
     "detect shadow writing consistencies" in {
-      val shadowPuzzle = Puzzle(23, testString, null, testString, null, 1, null, null, null, null, 1, testBool);
+      val shadowPuzzle = Puzzle.make(testString, null, null, null, List.empty[Line], testBool)(23);
       api.puzzle.insertPuzzleToOldShadow(shadowPuzzle)
 
       0 must be equalTo api.puzzle.shadowWriteConsistencyChecker(shadowPuzzle)
     }
 
     "detect shadow writing inconsistencies" in {
-      val shadowPuzzleInconsistent = Puzzle(24, testString, null, testString, null, 1, null, null, null, null, 1, testBool);
+      val shadowPuzzleInconsistent = Puzzle.make(testString, null, null, null, List.empty[Line], testBool)(24);
       api.puzzle.insertPuzzleToOld(shadowPuzzleInconsistent)
 
       1 must be equalTo api.puzzle.shadowWriteConsistencyChecker(shadowPuzzleInconsistent)

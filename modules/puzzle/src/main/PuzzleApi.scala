@@ -130,14 +130,15 @@ final class PuzzleApi(
 
     def insertPuzzleToOld(puzzle: Puzzle): Fu[PuzzleId] = {
       lila.db.Util findNextId puzzleColl flatMap { id =>
-        val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
+        puzzleColl insert puzzle inject id
+        /*val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
         puzzleColl.exists($doc(
           F.id -> $gte(puzzleIdMin),
           F.fen.$regex(fenStart.replace("/", "\\/"), "")
         )) flatMap {
           case false => puzzleColl insert puzzle inject id
           case _ => fufail(s"Duplicate puzzle $fenStart")
-        }
+        }*/
       }
     }
 

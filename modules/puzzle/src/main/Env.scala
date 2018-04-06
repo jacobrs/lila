@@ -37,7 +37,7 @@ final class Env(
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
-    puzzleMigrationColl = puzzleColl,
+    puzzleMigrationColl = puzzleMigrationColl,
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
@@ -89,6 +89,7 @@ final class Env(
   lazy val roundColl = db(CollectionRound)
   lazy val voteColl = db(CollectionVote)
   lazy val headColl = db(CollectionHead)
+  lazy val puzzleIdMin = PuzzleIdMin
 }
 
 object Env {
