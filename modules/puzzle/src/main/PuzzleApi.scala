@@ -183,7 +183,7 @@ final class PuzzleApi(
       inconsistency
     }
 
-    def consistencyChecker(): Unit = {
+    def consistencyChecker(): Int = {
       //Track inconsistencies
       var inconsistencies = 0
 
@@ -204,6 +204,7 @@ final class PuzzleApi(
           inconsistencies += 1
         }
       }
+      inconsistencies
     }
 
     def forklift(): Unit = {
