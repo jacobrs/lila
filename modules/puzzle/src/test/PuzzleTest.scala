@@ -69,5 +69,19 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
 
       1 must be equalTo api.puzzle.consistencyChecker()
     }
+
+	"detect shadow writing consistencies" in {
+      val shadowPuzzle = Puzzle(23, testString, null, testString, null, 1, null, null, null, null, 1, testBool);
+      api.puzzle.insertPuzzleToOldShadow(shadowPuzzle)
+
+      0 must be equalTo api.puzzle.shadowWriteConsistencyChecker(shadowPuzzle)
+    }
+	
+    "detect shadow writing inconsistencies" in {
+      val shadowPuzzleInconsistent = Puzzle(24, testString, null, testString, null, 1, null, null, null, null, 1, testBool);
+      api.puzzle.insertPuzzleToOld(shadowPuzzleInconsistent)
+
+      1 must be equalTo api.puzzle.shadowWriteConsistencyChecker(shadowPuzzleInconsistent)
+    }
   }
 }
