@@ -170,6 +170,19 @@ final class PuzzleApi(
       inconsistency
     }
 
+    def shadowReadConsistencyChecker(id: PuzzleId): Int = {
+      var inconsistency = 0
+
+      val oldData = Await.result(find(id), Duration.create(5, "seconds"))
+
+      val newData = Await.result(newFind(id), Duration.create(5, "seconds"))
+
+      if (oldData != newData)
+        inconsistency = 1
+
+      inconsistency
+    }
+
     def consistencyChecker(): Int = {
       //Track inconsistencies
       var inconsistencies = 0
