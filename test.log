@@ -1,0 +1,674 @@
+[0m[[0minfo[0m] [0mLoading global plugins from /Users/benjaminbarault/.sbt/0.13/plugins[0m
+[0m[[0minfo[0m] [0mLoading project definition from /Users/benjaminbarault/Desktop/Concordia/All Documents/Winter 2018 - Year 3 Semester 2/SOEN 345/lila/project/project[0m
+[0m[[0minfo[0m] [0mLoading project definition from /Users/benjaminbarault/Desktop/Concordia/All Documents/Winter 2018 - Year 3 Semester 2/SOEN 345/lila/project[0m
+[0m[[0minfo[0m] [0mResolving key references (29087 settings) ...[0m
+[0m[[0minfo[0m] [0mSet current project to lila (in build file:/Users/benjaminbarault/Desktop/Concordia/All%20Documents/Winter%202018%20-%20Year%203%20Semester%202/SOEN%20345/lila/)[0m
+[0m[[0minfo[0m] [0mStringTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mslugify should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m be safe in html[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification StringTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 2 seconds, 985 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m1 example, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mHtmlTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mrich text should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m detect link[0m
+[0m[[0minfo[0m] [0m  [32m+[0m skip buggy url like http://foo-@bar[0m
+[0m[[0minfo[0m] [0m  [32m+[0m detect image[0m
+[0m[[0minfo[0m] [0m  [32m+[0m detect imgur image URL[0m
+[0m[[0minfo[0m] [0m  [32m+[0m ignore imgur gallery URL[0m
+[0m[[0minfo[0m] [0mmarkdown links should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m add http links[0m
+[0m[[0minfo[0m] [0m  [32m+[0m only allow safe protocols[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification HtmlTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 3 seconds, 95 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m7 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mLameNameTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mdisallow should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m separated titles[0m
+[0m[[0minfo[0m] [0m  [32m+[0m uppercase titles[0m
+[0m[[0minfo[0m] [0m  [32m+[0m gross[0m
+[0m[[0minfo[0m] [0mallow should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m good stuff[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification LameNameTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 3 seconds, 67 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m4 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mStatsTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mempty stats should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m have good defaults[0m
+[0m[[0minfo[0m] [0m  convert to StatHolder[0m
+[0m[[0minfo[0m] [0m    [32m+[0m with good stats[0m
+[0m[[0minfo[0m] [0mlarge values should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m match actuals[0m
+[0m[[0minfo[0m] [0m  [32m+[0m match concat[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification StatsTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 281 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m4 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 16, Failed 0, Errors 0, Passed 16[0m
+[0m[[31merror[0m] [0m[0m
+[0m[[31merror[0m] [0mcannot create an instance for class lila.user.AuthTest[0m
+[0m[[31merror[0m] [0m  caused by java.lang.IllegalStateException: 256 bit AES unavailable[0m
+[0m[[31merror[0m] [0m[0m
+[0m[[31merror[0m] [0mSTACKTRACE[0m
+[0m[[31merror[0m] [0m  sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)[0m
+[0m[[31merror[0m] [0m  sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)[0m
+[0m[[31merror[0m] [0m  sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)[0m
+[0m[[31merror[0m] [0m  java.lang.reflect.Constructor.newInstance(Constructor.java:422)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$$anonfun$createInstanceForConstructor$1.apply(Classes.scala:61)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.org$specs2$reflect$Classes$$newInstance(Classes.scala:83)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.createInstanceForConstructor(Classes.scala:61)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.org$specs2$reflect$Classes$$findInstance(Classes.scala:47)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.createInstanceFromClass(Classes.scala:29)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$.createInstanceFromClass(Classes.scala:109)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$$anonfun$createInstance$1.apply(Classes.scala:25)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$$anonfun$createInstance$1.apply(Classes.scala:24)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:385)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.IntoPolyLower2$$anon$3$$anonfun$apply$8.apply(IntoPoly.scala:60)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.IntoPolyLower2$$anon$3$$anonfun$apply$8.apply(IntoPoly.scala:60)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:382)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anonfun$go$1$5.apply(Interpret.scala:197)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anonfun$go$1$5.apply(Interpret.scala:197)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:382)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$othersEff$1.apply(Unions.scala:97)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$othersEff$1.apply(Unions.scala:97)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:385)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:347)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$continuation$1.apply(Unions.scala:84)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$continuation$1.apply(Unions.scala:84)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:382)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1$$anonfun$onEffect$1.apply(Interpret.scala:52)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1$$anonfun$onEffect$1.apply(Interpret.scala:52)[0m
+[0m[[31merror[0m] [0m  scalaz.std.EitherInstances$$anon$4.bimap(Either.scala:54)[0m
+[0m[[31merror[0m] [0m  scalaz.std.EitherInstances$$anon$4.bimap(Either.scala:51)[0m
+[0m[[31merror[0m] [0m  scalaz.syntax.BifunctorOps.bimap(BifunctorSyntax.scala:9)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1.onEffect(Interpret.scala:52)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1.onApplicativeEffect(Interpret.scala:60)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1.onApplicativeEffect(Interpret.scala:44)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.go$1(Interpret.scala:199)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.interpretLoop(Interpret.scala:206)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$.interpretLoop(Interpret.scala:634)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.interpret(Interpret.scala:70)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$.interpret(Interpret.scala:634)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.interpret1(Interpret.scala:77)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$.interpret1(Interpret.scala:634)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.ErrorInterpretation$class.runError(ErrorEffect.scala:86)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.ErrorEffect$.runError(ErrorEffect.scala:199)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.syntax.error$ErrorEffectOps.runError(error.scala:15)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.package$.executeAction(package.scala:65)[0m
+[0m[[31merror[0m] [0m  org.specs2.runner.SbtRunner$$anon$4.specStructure$lzycompute(SbtRunner.scala:44)[0m
+[0m[[31merror[0m] [0m  org.specs2.runner.SbtRunner$$anon$4.specStructure(SbtRunner.scala:41)[0m
+[0m[[31merror[0m] [0m  org.specs2.runner.SbtRunner$$anon$4.execute(SbtRunner.scala:55)[0m
+[0m[[31merror[0m] [0m  sbt.TestRunner.runTest$1(TestFramework.scala:76)[0m
+[0m[[31merror[0m] [0m  sbt.TestRunner.run(TestFramework.scala:85)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:185)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFunction.apply(TestFramework.scala:207)[0m
+[0m[[31merror[0m] [0m  sbt.Tests$$anonfun$9.apply(Tests.scala:216)[0m
+[0m[[31merror[0m] [0m  sbt.Tests$$anonfun$9.apply(Tests.scala:216)[0m
+[0m[[31merror[0m] [0m  sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)[0m
+[0m[[31merror[0m] [0m  sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)[0m
+[0m[[31merror[0m] [0m  sbt.std.Transform$$anon$4.work(System.scala:63)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)[0m
+[0m[[31merror[0m] [0m  sbt.Execute.work(Execute.scala:237)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159)[0m
+[0m[[31merror[0m] [0m  sbt.CompletionService$$anon$2.call(CompletionService.scala:28)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.FutureTask.run(FutureTask.java:266)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.FutureTask.run(FutureTask.java:266)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)[0m
+[0m[[31merror[0m] [0m  java.lang.Thread.run(Thread.java:745)[0m
+[0m[[31merror[0m] [0m[0m
+[0m[[31merror[0m] [0m  CAUSED BY java.lang.IllegalStateException: 256 bit AES unavailable[0m
+[0m[[31merror[0m] [0m  lila.user.Aes.<init>(PasswordHasher.scala:23)[0m
+[0m[[31merror[0m] [0m  lila.user.PasswordHasher.<init>(PasswordHasher.scala:57)[0m
+[0m[[31merror[0m] [0m  lila.user.AuthTest.<init>(AuthTest.scala:16)[0m
+[0m[[31merror[0m] [0m  sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)[0m
+[0m[[31merror[0m] [0m  sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)[0m
+[0m[[31merror[0m] [0m  sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)[0m
+[0m[[31merror[0m] [0m  java.lang.reflect.Constructor.newInstance(Constructor.java:422)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$$anonfun$createInstanceForConstructor$1.apply(Classes.scala:61)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.org$specs2$reflect$Classes$$newInstance(Classes.scala:83)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.createInstanceForConstructor(Classes.scala:61)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.org$specs2$reflect$Classes$$findInstance(Classes.scala:47)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$class.createInstanceFromClass(Classes.scala:29)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$.createInstanceFromClass(Classes.scala:109)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$$anonfun$createInstance$1.apply(Classes.scala:25)[0m
+[0m[[31merror[0m] [0m  org.specs2.reflect.Classes$$anonfun$createInstance$1.apply(Classes.scala:24)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:385)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.IntoPolyLower2$$anon$3$$anonfun$apply$8.apply(IntoPoly.scala:60)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.IntoPolyLower2$$anon$3$$anonfun$apply$8.apply(IntoPoly.scala:60)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:382)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anonfun$go$1$5.apply(Interpret.scala:197)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anonfun$go$1$5.apply(Interpret.scala:197)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:382)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$othersEff$1.apply(Unions.scala:97)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$othersEff$1.apply(Unions.scala:97)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:385)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:347)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$continuation$1.apply(Unions.scala:84)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.CollectedUnions$$anonfun$continuation$1.apply(Unions.scala:84)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.go$1(Eff.scala:382)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Arrs.apply(Eff.scala:398)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1$$anonfun$onEffect$1.apply(Interpret.scala:52)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1$$anonfun$onEffect$1.apply(Interpret.scala:52)[0m
+[0m[[31merror[0m] [0m  scalaz.std.EitherInstances$$anon$4.bimap(Either.scala:54)[0m
+[0m[[31merror[0m] [0m  scalaz.std.EitherInstances$$anon$4.bimap(Either.scala:51)[0m
+[0m[[31merror[0m] [0m  scalaz.syntax.BifunctorOps.bimap(BifunctorSyntax.scala:9)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1.onEffect(Interpret.scala:52)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1.onApplicativeEffect(Interpret.scala:60)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$$anon$1.onApplicativeEffect(Interpret.scala:44)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.go$1(Interpret.scala:199)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.interpretLoop(Interpret.scala:206)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$.interpretLoop(Interpret.scala:634)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.interpret(Interpret.scala:70)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$.interpret(Interpret.scala:634)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$class.interpret1(Interpret.scala:77)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.Interpret$.interpret1(Interpret.scala:634)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.ErrorInterpretation$class.runError(ErrorEffect.scala:86)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.ErrorEffect$.runError(ErrorEffect.scala:199)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.eff.syntax.error$ErrorEffectOps.runError(error.scala:15)[0m
+[0m[[31merror[0m] [0m  org.specs2.control.package$.executeAction(package.scala:65)[0m
+[0m[[31merror[0m] [0m  org.specs2.runner.SbtRunner$$anon$4.specStructure$lzycompute(SbtRunner.scala:44)[0m
+[0m[[31merror[0m] [0m  org.specs2.runner.SbtRunner$$anon$4.specStructure(SbtRunner.scala:41)[0m
+[0m[[31merror[0m] [0m  org.specs2.runner.SbtRunner$$anon$4.execute(SbtRunner.scala:55)[0m
+[0m[[31merror[0m] [0m  sbt.TestRunner.runTest$1(TestFramework.scala:76)[0m
+[0m[[31merror[0m] [0m  sbt.TestRunner.run(TestFramework.scala:85)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:185)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)[0m
+[0m[[31merror[0m] [0m  sbt.TestFunction.apply(TestFramework.scala:207)[0m
+[0m[[31merror[0m] [0m  sbt.Tests$$anonfun$9.apply(Tests.scala:216)[0m
+[0m[[31merror[0m] [0m  sbt.Tests$$anonfun$9.apply(Tests.scala:216)[0m
+[0m[[31merror[0m] [0m  sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)[0m
+[0m[[31merror[0m] [0m  sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)[0m
+[0m[[31merror[0m] [0m  sbt.std.Transform$$anon$4.work(System.scala:63)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)[0m
+[0m[[31merror[0m] [0m  sbt.Execute.work(Execute.scala:237)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)[0m
+[0m[[31merror[0m] [0m  sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159)[0m
+[0m[[31merror[0m] [0m  sbt.CompletionService$$anon$2.call(CompletionService.scala:28)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.FutureTask.run(FutureTask.java:266)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.FutureTask.run(FutureTask.java:266)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)[0m
+[0m[[31merror[0m] [0m  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)[0m
+[0m[[31merror[0m] [0m  java.lang.Thread.run(Thread.java:745)[0m
+[0m[[31merror[0m] [0m [0m
+[0m[[0minfo[0m] [0mBCryptTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mbcrypt should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m accept correct pass[0m
+[0m[[0minfo[0m] [0m  [32m+[0m reject bad password[0m
+[0m[[0minfo[0m] [0m  [32m+[0m have uniq salts[0m
+[0m[[0minfo[0m] [0m  raw bytes[0m
+[0m[[0minfo[0m] [0m    [32m+[0m accept good[0m
+[0m[[0minfo[0m] [0m    [32m+[0m reject bad[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification BCryptTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 517 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m5 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mUserTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0musername regex[0m
+[0m[[0minfo[0m] [0m  [32m+[0m bad prefix: can login[0m
+[0m[[0minfo[0m] [0m  [32m+[0m bad prefix: cannot signup[0m
+[0m[[0minfo[0m] [0m  [32m+[0m bad suffix[0m
+[0m[[0minfo[0m] [0m  [32m+[0m OK things[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification UserTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 496 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m4 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPasswordHasherTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[32m+[0m bad secrets throw exceptions[0m
+[0m[[0minfo[0m] [0maes should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m preserve size[0m
+[0m[[0minfo[0m] [0m  [32m+[0m encrypt input[0m
+[0m[[0minfo[0m] [0m  [32m+[0m and decrypt[0m
+[0m[[0minfo[0m] [0m  [32m+[0m constant encryption[0m
+[0m[[0minfo[0m] [0m  [32m+[0m iv matters[0m
+[0m[[0minfo[0m] [0mhasher should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m accept good[0m
+[0m[[0minfo[0m] [0m  [32m+[0m reject bad[0m
+[0m[[0minfo[0m] [0m  [32m+[0m uniq hash[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification PasswordHasherTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 383 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m9 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[31merror[0m] [0mError: Total 19, Failed 0, Errors 1, Passed 18[0m
+[0m[[31merror[0m] [0mError during tests:[0m
+[0m[[31merror[0m] [0m	lila.user.AuthTest[0m
+[0m[[0minfo[0m] [0mRatingRangeTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mRatingRange should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m set a proper default[0m
+[0m[[0minfo[0m] [0m  [32m+[0m properly contain a value within its range[0m
+[0m[[0minfo[0m] [0m  [32m+[0m properly exclude a values out of its range[0m
+[0m[[0minfo[0m] [0m  [32m+[0m ignore the min if it passes the RatingRange min[0m
+[0m[[0minfo[0m] [0m  [32m+[0m ignore the max if it passes the RatingRange max[0m
+[0m[[0minfo[0m] [0m  [32m+[0m ignore the min and max if they pass their respective RatingRange values[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification RatingRangeTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 882 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m6 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 6, Failed 0, Errors 0, Passed 6[0m
+[0m[[0minfo[0m] [0mCompiling 10 Scala sources to /Users/benjaminbarault/Desktop/Concordia/All Documents/Winter 2018 - Year 3 Semester 2/SOEN 345/lila/modules/game/target/scala-2.11/test-classes...[0m
+[0m[[0minfo[0m] [0mFloodTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mfind duplicate should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m same[0m
+[0m[[0minfo[0m] [0m  [32m+[0m levenshtein[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification FloodTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 486 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m2 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mSpamTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mspam should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m detect[0m
+[0m[[0minfo[0m] [0m  [32m+[0m replace[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification SpamTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 481 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m2 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mDisposableEmailDomainTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mdisposable email domain should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m simple[0m
+[0m[[0minfo[0m] [0m  [32m+[0m suffix[0m
+[0m[[0minfo[0m] [0m  [32m+[0m regex[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification DisposableEmailDomainTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 501 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m3 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 7, Failed 0, Errors 0, Passed 7[0m
+[0m[[0minfo[0m] [0mDetectTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mdetector should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m find one bad word[0m
+[0m[[0minfo[0m] [0m  [32m+[0m find many bad words[0m
+[0m[[0minfo[0m] [0m  [32m+[0m find no bad words[0m
+[0m[[0minfo[0m] [0m  [32m+[0m find badly spelled words[0m
+[0m[[0minfo[0m] [0m  [32m+[0m find variants[0m
+[0m[[0minfo[0m] [0m  [32m+[0m find plurals[0m
+[0m[[0minfo[0m] [0m  [32m+[0m 50 shades of fuck[0m
+[0m[[0minfo[0m] [0m  [32m+[0m compute ratio[0m
+[0m[[0minfo[0m] [0m  [32m+[0m chessbot variations[0m
+[0m[[0minfo[0m] [0m  [32m+[0m russian[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification DetectTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 921 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m10 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mYoutubeTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mfix youtube timestamps should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m no youtube embed[0m
+[0m[[0minfo[0m] [0m  [32m+[0m with youtube embed[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification YoutubeTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 766 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m2 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPuzzleTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[31merror[0m] [0m[31m![0m [0m
+[0m[[31merror[0m] [0m com.google.inject.ProvisionException: Unable to provision, see the following errors:[0m
+[0m[[31merror[0m] [0m [0m
+[0m[[31merror[0m] [0m 1) Error in custom provider, akka.ConfigurationException: Akka JAR version [2.3.13] does not match the provided config version [2.3.14][0m
+[0m[[31merror[0m] [0m   while locating play.api.libs.concurrent.ActorSystemProvider[0m
+[0m[[31merror[0m] [0m   while locating akka.actor.ActorSystem[0m
+[0m[[31merror[0m] [0m     for parameter 6 at play.api.DefaultApplication.<init>(Application.scala:241)[0m
+[0m[[31merror[0m] [0m   at play.api.DefaultApplication.class(Application.scala:241)[0m
+[0m[[31merror[0m] [0m   while locating play.api.DefaultApplication[0m
+[0m[[31merror[0m] [0m   while locating play.api.Application[0m
+[0m[[31merror[0m] [0m [0m
+[0m[[31merror[0m] [0m 1 error (InjectorImpl.java:1025)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl$2.get(InjectorImpl.java:1025)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1051)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceInjector.instanceOf(GuiceInjectorBuilder.scala:321)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceInjector.instanceOf(GuiceInjectorBuilder.scala:316)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:98)[0m
+[0m[[31merror[0m] [0mlila.puzzle.PuzzleTest.lila$puzzle$PuzzleTest$$$anonfun$1(PuzzleTest.scala:20)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystem$Settings.<init>(ActorSystem.scala:210)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystemImpl.<init>(ActorSystem.scala:505)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystem$.apply(ActorSystem.scala:142)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystem$.apply(ActorSystem.scala:126)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider$.start(Akka.scala:289)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider.get$lzycompute(Akka.scala:254)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider.get(Akka.scala:253)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider.get(Akka.scala:249)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:38)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:62)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:104)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:85)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:267)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1103)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.SingletonScope$1.get(SingletonScope.java:145)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.FactoryProxy.get(FactoryProxy.java:56)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl$2$1.call(InjectorImpl.java:1016)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl$2.get(InjectorImpl.java:1012)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1051)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceInjector.instanceOf(GuiceInjectorBuilder.scala:321)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceInjector.instanceOf(GuiceInjectorBuilder.scala:316)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:98)[0m
+[0m[[31merror[0m] [0mlila.puzzle.PuzzleTest.lila$puzzle$PuzzleTest$$$anonfun$1(PuzzleTest.scala:20)[0m
+[0m[[31merror[0m] [0mCAUSED BY[0m
+[0m[[31merror[0m] [0m akka.ConfigurationException: Akka JAR version [2.3.13] does not match the provided config version [2.3.14] (ActorSystem.scala:210)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystem$Settings.<init>(ActorSystem.scala:210)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystemImpl.<init>(ActorSystem.scala:505)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystem$.apply(ActorSystem.scala:142)[0m
+[0m[[31merror[0m] [0makka.actor.ActorSystem$.apply(ActorSystem.scala:126)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider$.start(Akka.scala:289)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider.get$lzycompute(Akka.scala:254)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider.get(Akka.scala:253)[0m
+[0m[[31merror[0m] [0mplay.api.libs.concurrent.ActorSystemProvider.get(Akka.scala:249)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:81)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:72)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:61)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:62)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:38)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:62)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:104)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:85)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:267)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1103)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.SingletonScope$1.get(SingletonScope.java:145)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.FactoryProxy.get(FactoryProxy.java:56)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl$2$1.call(InjectorImpl.java:1016)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl$2.get(InjectorImpl.java:1012)[0m
+[0m[[31merror[0m] [0mcom.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1051)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceInjector.instanceOf(GuiceInjectorBuilder.scala:321)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceInjector.instanceOf(GuiceInjectorBuilder.scala:316)[0m
+[0m[[31merror[0m] [0mplay.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:98)[0m
+[0m[[31merror[0m] [0mlila.puzzle.PuzzleTest.lila$puzzle$PuzzleTest$$$anonfun$1(PuzzleTest.scala:20)[0m
+[0m[[0minfo[0m] [0m[35mo[0m [0m
+[0m[[0minfo[0m] [0mSKIPPED[35mo[0m [0m
+[0m[[0minfo[0m] [0mSKIPPED[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification PuzzleTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 5 seconds, 683 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m0 example, 3 expectations, 0 failure, 1 error, 2 skipped[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 10, Failed 0, Errors 0, Passed 10[0m
+[0m[[0minfo[0m] [0mPassed: Total 2, Failed 0, Errors 0, Passed 2[0m
+[0m[[31merror[0m] [0mError: Total 1, Failed 0, Errors 1, Passed 0[0m
+[0m[[31merror[0m] [0mError during tests:[0m
+[0m[[31merror[0m] [0m	lila.puzzle.PuzzleTest[0m
+[0m[[0minfo[0m] [0mStatisticsTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification StatisticsTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 651 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m0 example, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 0, Failed 0, Errors 0, Passed 0[0m
+[0m[[0minfo[0m] [0mUciToPgnTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mconvert UCI analysis to PGN should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m work :)[0m
+[0m[[0minfo[0m] [0m  [32m+[0m even in KotH[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification UciToPgnTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 4 seconds, 574 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m2 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 2, Failed 0, Errors 0, Passed 2[0m
+[0m[[0minfo[0m] [0mCompiling 2 Scala sources to /Users/benjaminbarault/Desktop/Concordia/All Documents/Winter 2018 - Year 3 Semester 2/SOEN 345/lila/modules/study/target/scala-2.11/test-classes...[0m
+warming up
+[0m[[0minfo[0m] [0mDataFormTest[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mImport from position should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m preserve initial FEN[0m
+[0m[[0minfo[0m] [0mImport should[0m
+[0m[[0minfo[0m] [0m  [32m+[0m default to normal termination[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mTotal for specification DataFormTest[0m
+[0m[[0minfo[0m] [0m[36mFinished in 2 seconds, 663 ms[0m[0m
+[0m[[0minfo[0m] [0m[36m[0m[36m2 examples, 0 failure, 0 error[0m[0m
+[0m[[0minfo[0m] [0m[0m
+[0m[[0minfo[0m] [0mPassed: Total 2, Failed 0, Errors 0, Passed 2[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /Users/benjaminbarault/Desktop/Concordia/All Documents/Winter 2018 - Year 3 Semester 2/SOEN 345/lila/modules/api/target/scala-2.11/test-classes...[0m
+java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireSharedInterruptibly(AbstractQueuedSynchronizer.java:998)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1304)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryAwait(Promise.scala:206)
+	at scala.concurrent.impl.Promise$DefaultPromise.ready(Promise.scala:222)
+	at scala.concurrent.impl.Promise$DefaultPromise.result(Promise.scala:227)
+	at scala.concurrent.Await$$anonfun$result$1.apply(package.scala:190)
+	at scala.concurrent.BlockContext$DefaultBlockContext$.blockOn(BlockContext.scala:53)
+	at scala.concurrent.Await$.result(package.scala:190)
+	at org.specs2.control.package$.executeAction(package.scala:64)
+	at org.specs2.runner.SbtRunner$$anon$4$$anonfun$execute$1.apply(SbtRunner.scala:60)
+	at org.specs2.runner.SbtRunner$$anon$4$$anonfun$execute$1.apply(SbtRunner.scala:58)
+	at scala.Option.foreach(Option.scala:257)
+	at org.specs2.runner.SbtRunner$$anon$4.execute(SbtRunner.scala:58)
+	at sbt.TestRunner.runTest$1(TestFramework.scala:76)
+	at sbt.TestRunner.run(TestFramework.scala:85)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)
+	at sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:185)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)
+	at sbt.TestFunction.apply(TestFramework.scala:207)
+	at sbt.Tests$$anonfun$9.apply(Tests.scala:216)
+	at sbt.Tests$$anonfun$9.apply(Tests.scala:216)
+	at sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)
+	at sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)
+	at sbt.std.Transform$$anon$4.work(System.scala:63)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)
+	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)
+	at sbt.Execute.work(Execute.scala:237)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)
+	at sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:28)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+[0m[[31merror[0m] [0mCould not run test lila.round.StepBuilderPerfTest: java.lang.InterruptedException[0m
+java.lang.NullPointerException
+	at sbt.JUnitXmlTestsListener$TestSuite$$anonfun$2.apply(JUnitXmlTestsListener.scala:78)
+	at sbt.JUnitXmlTestsListener$TestSuite$$anonfun$2.apply(JUnitXmlTestsListener.scala:71)
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)
+	at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)
+	at scala.collection.immutable.List.foreach(List.scala:318)
+	at scala.collection.generic.TraversableForwarder$class.foreach(TraversableForwarder.scala:32)
+	at scala.collection.mutable.ListBuffer.foreach(ListBuffer.scala:45)
+	at scala.collection.TraversableLike$class.map(TraversableLike.scala:244)
+	at scala.collection.AbstractTraversable.map(Traversable.scala:105)
+	at sbt.JUnitXmlTestsListener$TestSuite.stop(JUnitXmlTestsListener.scala:71)
+	at sbt.JUnitXmlTestsListener.writeSuite(JUnitXmlTestsListener.scala:180)
+	at sbt.JUnitXmlTestsListener.endGroup(JUnitXmlTestsListener.scala:161)
+	at sbt.TestRunner$$anonfun$run$4.apply(TestFramework.scala:90)
+	at sbt.TestRunner$$anonfun$run$4.apply(TestFramework.scala:90)
+	at sbt.TestFramework$$anonfun$safeForeach$1.apply(TestFramework.scala:107)
+	at sbt.TestFramework$$anonfun$safeForeach$1.apply(TestFramework.scala:107)
+	at scala.collection.immutable.List.foreach(List.scala:318)
+	at sbt.TestFramework$.safeForeach(TestFramework.scala:107)
+	at sbt.TestRunner.safeListenersCall(TestFramework.scala:96)
+	at sbt.TestRunner.run(TestFramework.scala:90)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1$$anonfun$apply$8.apply(TestFramework.scala:202)
+	at sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:185)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)
+	at sbt.TestFramework$$anon$2$$anonfun$$init$$1.apply(TestFramework.scala:202)
+	at sbt.TestFunction.apply(TestFramework.scala:207)
+	at sbt.Tests$$anonfun$9.apply(Tests.scala:216)
+	at sbt.Tests$$anonfun$9.apply(Tests.scala:216)
+	at sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)
+	at sbt.std.Transform$$anon$3$$anonfun$apply$2.apply(System.scala:44)
+	at sbt.std.Transform$$anon$4.work(System.scala:63)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:228)
+	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)
+	at sbt.Execute.work(Execute.scala:237)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:228)
+	at sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:28)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+[0m[[31merror[0m] [0mjava.lang.NullPointerException[0m
+java.util.concurrent.ExecutionException: java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+	at sbt.ConcurrentRestrictions$$anon$4.take(ConcurrentRestrictions.scala:188)
+	at sbt.Execute.next$1(Execute.scala:85)
+	at sbt.Execute.processAll(Execute.scala:88)
+	at sbt.Execute.runKeep(Execute.scala:68)
+	at sbt.EvaluateTask$.liftedTree1$1(EvaluateTask.scala:359)
+	at sbt.EvaluateTask$.run$1(EvaluateTask.scala:358)
+	at sbt.EvaluateTask$.runTask(EvaluateTask.scala:378)
+	at sbt.Aggregation$$anonfun$3.apply(Aggregation.scala:69)
+	at sbt.Aggregation$$anonfun$3.apply(Aggregation.scala:67)
+	at sbt.EvaluateTask$.withStreams(EvaluateTask.scala:314)
+	at sbt.Aggregation$.timedRun(Aggregation.scala:67)
+	at sbt.Aggregation$.runTasks(Aggregation.scala:76)
+	at sbt.Aggregation$$anonfun$applyTasks$1.apply(Aggregation.scala:37)
+	at sbt.Aggregation$$anonfun$applyTasks$1.apply(Aggregation.scala:36)
+	at sbt.Command$$anonfun$applyEffect$2$$anonfun$apply$3.apply(Command.scala:61)
+	at sbt.Command$$anonfun$applyEffect$2$$anonfun$apply$3.apply(Command.scala:61)
+	at sbt.Aggregation$$anonfun$evaluatingParser$4$$anonfun$apply$5.apply(Aggregation.scala:158)
+	at sbt.Aggregation$$anonfun$evaluatingParser$4$$anonfun$apply$5.apply(Aggregation.scala:157)
+	at sbt.Act$$anonfun$sbt$Act$$actParser0$1$$anonfun$sbt$Act$$anonfun$$evaluate$1$1$$anonfun$apply$10.apply(Act.scala:253)
+	at sbt.Act$$anonfun$sbt$Act$$actParser0$1$$anonfun$sbt$Act$$anonfun$$evaluate$1$1$$anonfun$apply$10.apply(Act.scala:250)
+	at sbt.Command$.process(Command.scala:93)
+	at sbt.MainLoop$$anonfun$1$$anonfun$apply$1.apply(MainLoop.scala:96)
+	at sbt.MainLoop$$anonfun$1$$anonfun$apply$1.apply(MainLoop.scala:96)
+	at sbt.State$$anon$1.runCmd$1(State.scala:183)
+	at sbt.State$$anon$1.process(State.scala:187)
+	at sbt.MainLoop$$anonfun$1.apply(MainLoop.scala:96)
+	at sbt.MainLoop$$anonfun$1.apply(MainLoop.scala:96)
+	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17)
+	at sbt.MainLoop$.next(MainLoop.scala:96)
+	at sbt.MainLoop$.run(MainLoop.scala:89)
+	at sbt.MainLoop$$anonfun$runWithNewLog$1.apply(MainLoop.scala:68)
+	at sbt.MainLoop$$anonfun$runWithNewLog$1.apply(MainLoop.scala:63)
+	at sbt.Using.apply(Using.scala:24)
+	at sbt.MainLoop$.runWithNewLog(MainLoop.scala:63)
+	at sbt.MainLoop$.runAndClearLast(MainLoop.scala:46)
+	at sbt.MainLoop$.runLoggedLoop(MainLoop.scala:30)
+	at sbt.MainLoop$.runLogged(MainLoop.scala:22)
+	at sbt.StandardMain$.runManaged(Main.scala:61)
+	at sbt.xMain.run(Main.scala:35)
+	at xsbt.boot.Launch$$anonfun$run$1.apply(Launch.scala:109)
+	at xsbt.boot.Launch$.withContextLoader(Launch.scala:128)
+	at xsbt.boot.Launch$.run(Launch.scala:109)
+	at xsbt.boot.Launch$$anonfun$apply$1.apply(Launch.scala:35)
+	at xsbt.boot.Launch$.launch(Launch.scala:117)
+	at xsbt.boot.Launch$.apply(Launch.scala:18)
+	at xsbt.boot.Boot$.runImpl(Boot.scala:41)
+	at xsbt.boot.Boot$.main(Boot.scala:17)
+	at xsbt.boot.Boot.main(Boot.scala)
+Caused by: java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at java.util.zip.ZipCoder.toString(ZipCoder.java:49)
+	at java.util.zip.ZipFile.getZipEntry(ZipFile.java:566)
+	at java.util.zip.ZipFile.access$900(ZipFile.java:60)
+	at java.util.zip.ZipFile$ZipEntryIterator.next(ZipFile.java:524)
+	at java.util.zip.ZipFile$ZipEntryIterator.nextElement(ZipFile.java:499)
+	at java.util.zip.ZipFile$ZipEntryIterator.nextElement(ZipFile.java:480)
+	at scala.reflect.io.FileZipArchive.x$1$lzycompute(ZipArchive.scala:136)
+	at scala.reflect.io.FileZipArchive.x$1(ZipArchive.scala:124)
+	at scala.reflect.io.FileZipArchive.root$lzycompute(ZipArchive.scala:124)
+	at scala.reflect.io.FileZipArchive.root(ZipArchive.scala:124)
+	at scala.reflect.io.FileZipArchive.iterator(ZipArchive.scala:153)
+	at scala.collection.IterableLike$class.foreach(IterableLike.scala:72)
+	at scala.reflect.io.AbstractFile.foreach(AbstractFile.scala:92)
+	at scala.tools.nsc.util.DirectoryClassPath.traverse(ClassPath.scala:277)
+	at scala.tools.nsc.util.DirectoryClassPath.x$15$lzycompute(ClassPath.scala:299)
+	at scala.tools.nsc.util.DirectoryClassPath.x$15(ClassPath.scala:299)
+	at scala.tools.nsc.util.DirectoryClassPath.packages$lzycompute(ClassPath.scala:299)
+	at scala.tools.nsc.util.DirectoryClassPath.packages(ClassPath.scala:299)
+	at scala.tools.nsc.util.DirectoryClassPath.packages(ClassPath.scala:264)
+	at scala.tools.nsc.util.MergedClassPath$$anonfun$packages$1.apply(ClassPath.scala:358)
+	at scala.tools.nsc.util.MergedClassPath$$anonfun$packages$1.apply(ClassPath.scala:358)
+	at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1334)
+	at scala.collection.IterableLike$class.foreach(IterableLike.scala:72)
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54)
+	at scala.tools.nsc.util.MergedClassPath.packages$lzycompute(ClassPath.scala:358)
+	at scala.tools.nsc.util.MergedClassPath.packages(ClassPath.scala:353)
+	at scala.tools.nsc.symtab.SymbolLoaders$PackageLoader$$anonfun$doComplete$1.apply$mcV$sp(SymbolLoaders.scala:269)
+	at scala.tools.nsc.symtab.SymbolLoaders$PackageLoader$$anonfun$doComplete$1.apply(SymbolLoaders.scala:260)
+	at scala.tools.nsc.symtab.SymbolLoaders$PackageLoader$$anonfun$doComplete$1.apply(SymbolLoaders.scala:260)
+	at scala.reflect.internal.SymbolTable.enteringPhase(SymbolTable.scala:235)
+	at scala.tools.nsc.symtab.SymbolLoaders$PackageLoader.doComplete(SymbolLoaders.scala:260)
+[0m[[31merror[0m] [0mjava.util.concurrent.ExecutionException: java.lang.OutOfMemoryError: GC overhead limit exceeded[0m
+[0m[[31merror[0m] [0mUse 'last' for the full log.[0m
