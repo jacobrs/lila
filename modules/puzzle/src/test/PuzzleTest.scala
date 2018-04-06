@@ -48,7 +48,7 @@ class PuzzleTest extends Specification {
     for (puzzle <- puzzleList)
       api.puzzle.insertPuzzleToOld(puzzle)
 
-    "the api" should {
+    "Api" should {
       "not be null" in {
         api shouldNotEqual null
       }
@@ -56,7 +56,17 @@ class PuzzleTest extends Specification {
         api.puzzle.forklift()
 
         0 must be equalTo api.puzzle.consistencyChecker()
+      }
+      "detect an inconsistency in the new database" in {
+        api.puzzle.forklift()
 
+        val inconsistentPuzzle = Puzzle(22, testString, null, testString, null, 1, null, null, null, null, 1, testBool);
+        api.puzzle.insertPuzzleToOld(inconsistentPuzzle)
+
+        1 must be equalTo api.puzzle.consistencyChecker()
+      }
+      "detect shadow writing consistencies"{
+        
       }
     }
   }
