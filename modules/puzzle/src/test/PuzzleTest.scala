@@ -21,7 +21,6 @@ class PuzzleTest extends Specification {
     Logger.logger.debug(ConfigFactory.load("base.conf").getString("mongodb.uri"))
     Play.start(application)
     db = lila.puzzle.Env.current
-
   }
 
   step {
@@ -56,7 +55,7 @@ class PuzzleTest extends Specification {
 
     val puzzleList = puzzleListBuffer.toList
 
-    for (i <- 1 to 9)
+    for (i <- 0 to 8)
       api.puzzle.insertPuzzleToOld(puzzleList(i))
 
     "the api" should {

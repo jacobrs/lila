@@ -109,6 +109,7 @@ object AsyncCache {
 
   private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit = {
     logger.info(s"Caffeine cache $name started")
+    /*
     val monitor = new lila.mon.Caffeine(name)
     system.scheduler.schedule(1 minute, 1 minute) {
       val stats = cache.stats
@@ -124,6 +125,7 @@ object AsyncCache {
       monitor evictionCount stats.evictionCount
       monitor entryCount cache.estimatedSize
     }
+    */
   }
 
   sealed trait ExpireAfter
