@@ -1,16 +1,12 @@
 package lila.puzzle
 
 import chess.Color
-import com.typesafe.config.{ Config, ConfigFactory }
-import lila.memo
-import lila.memo.AsyncCache
+import com.typesafe.config.{ ConfigFactory }
 import org.joda.time.DateTime
 import org.specs2.mutable._
-import org.specs2.specification
 import org.specs2.specification.{ AfterAll, BeforeAll }
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api._
-import play.api.libs.json.JsArray
 
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.duration.Duration
@@ -33,10 +29,12 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
   var puzzleListBuffer = ListBuffer[Puzzle]()
   var testLines = List[Line](testLine)
   var testHistory = List[String](testString)
+  var shouldForklift = true
 
   lazy val api = new PuzzleApi(
     puzzleColl = db.puzzleColl,
     puzzleMigrationColl = db.puzzleMigrationColl,
+    puzzleHashColl = db.puzzleHashColl,
     db.roundColl,
     db.voteColl,
     db.headColl,
@@ -54,28 +52,34 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     db = lila.puzzle.Env.current
     ec = application.injector.instanceOf[ExecutionContext]
 
-    for (i <- 1 to 9)
-      puzzleListBuffer += Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(i)
-
-    val puzzleList = puzzleListBuffer.toList
-
     api.useOldDatastore = true
-    for (puzzle <- puzzleList)
-      Await.result(api.puzzle.insertPuzzleToOld(puzzle), Duration.Inf)
+    api.useHashDatastore = false
+
+    if (shouldForklift) {
+      for (i <- 1 to 9)
+        puzzleListBuffer += Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(i)
+
+      val puzzleList = puzzleListBuffer.toList
+
+      for (puzzle <- puzzleList)
+        Await.result(api.puzzle.insertPuzzleToOld(puzzle), Duration.Inf)
+    }
   }
 
   def afterAll = Play.stop(application)
 
   "Api" should {
     "save same data to both tables" in {
-      api.useOldDatastore = true
-      api.puzzle.forklift()
-
-      api.puzzle.consistencyChecker() must be equalTo 0
+      if (shouldForklift) {
+        api.puzzle.forklift()
+        api.puzzle.consistencyChecker() must be equalTo 0
+      } else {
+        // We don't need to test the forklift because it has been done
+        0 must be equalTo 0
+      }
     }
 
     "detect an inconsistency in the new database" in {
-      api.useOldDatastore = true
       val inconsistentPuzzle = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(10);
 
       Await.result(api.puzzle.insertPuzzleToOld(inconsistentPuzzle), Duration.Inf)
@@ -84,7 +88,6 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     }
 
     "detect shadow writing consistencies" in {
-      api.useOldDatastore = true
       val shadowPuzzle = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(11);
 
       Await.result(api.puzzle.insertPuzzleToOldShadow(shadowPuzzle), Duration.Inf)
@@ -93,16 +96,17 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     }
 
     "detect shadow writing inconsistencies" in {
-      api.useOldDatastore = true
       val shadowPuzzleInconsistent = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(12);
 
+      val oldSetting = api.useOldDatastore
+      api.useOldDatastore = true
       Await.result(api.puzzle.insertPuzzleToOld(shadowPuzzleInconsistent), Duration.Inf)
+      api.useOldDatastore = oldSetting
 
       api.puzzle.shadowWriteConsistencyChecker(shadowPuzzleInconsistent) must be equalTo 1
     }
 
     "detect shadow read consistencies" in {
-      api.useOldDatastore = true
       val shadowPuzzle = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(13);
 
       Await.result(api.puzzle.insertPuzzleToOldShadow(shadowPuzzle), Duration.Inf)
@@ -111,21 +115,33 @@ class PuzzleTest extends SpecificationLike with BeforeAll with AfterAll {
     }
 
     "detect shadow read inconsistencies" in {
-      api.useOldDatastore = true
       val shadowPuzzleInconsistent = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(14);
 
+      val oldSetting = api.useOldDatastore
+      api.useOldDatastore = true
       Await.result(api.puzzle.insertPuzzleToOld(shadowPuzzleInconsistent), Duration.Inf)
+      api.useOldDatastore = oldSetting
 
       api.puzzle.shadowReadConsistencyChecker(14) must be equalTo 1
     }
 
     "should not use old datastore" in {
       api.useOldDatastore = false
+      api.useHashDatastore = false
       val generatedPuzzle = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(15);
       Await.result(api.puzzle.insertPuzzleToOld(generatedPuzzle), Duration.Inf)
 
       api.useOldDatastore = true
       api.puzzle.shadowWriteConsistencyChecker(generatedPuzzle) must be equalTo 1
+    }
+
+    "insert into the hash storage instead" in {
+      api.useHashDatastore = true
+      val inconsistentPuzzle = Puzzle.make(testString, testHistory, testString, testColor, List.empty[Line], testBool)(10);
+
+      Await.result(api.puzzle.insertPuzzleToOld(inconsistentPuzzle), Duration.Inf)
+
+      api.puzzle.consistencyChecker() must not equalTo 0
     }
   }
 }

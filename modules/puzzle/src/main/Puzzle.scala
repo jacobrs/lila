@@ -41,6 +41,13 @@ case class Puzzle(
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
     } yield Forsyth >> sit2
   }
+
+  def hash: String = {
+    println(this.toString)
+    val m = java.security.MessageDigest.getInstance("MD5")
+    m.update(this.toString.getBytes("UTF-8"), 0, this.toString.length)
+    new java.math.BigInteger(1, m.digest()).toString(16)
+  }
 }
 
 object Puzzle {

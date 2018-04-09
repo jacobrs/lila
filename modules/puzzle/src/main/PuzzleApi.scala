@@ -11,6 +11,7 @@ import scala.concurrent.{ Await, Future }
 final class PuzzleApi(
     puzzleColl: Coll,
     puzzleMigrationColl: Coll,
+    puzzleHashColl: Coll,
     roundColl: Coll,
     voteColl: Coll,
     headColl: Coll,
@@ -19,45 +20,40 @@ final class PuzzleApi(
     apiToken: String
 ) {
 
-  import Puzzle.puzzleBSONHandler
   var useOldDatastore = true
+  var useHashDatastore = false
 
   object puzzle {
 
     // Read
     def find(id: PuzzleId): Fu[Option[Puzzle]] = {
       newFind(id) // Call shadow read method
-      useOldDatastore match {
-        case true => puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
-        case _ => newFind(id)
-      }
+      puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
     }
 
     // Read
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] = {
-      useOldDatastore match {
-        case true => puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
-        case _ => newFindMany(ids)
-      }
+      newFindMany(ids) // Call shadow read method
+      puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
     }
 
     // Read
     def findAll(): Fu[List[Puzzle]] = {
-      useOldDatastore match {
-        case true => puzzleColl.find($empty).list[Puzzle]()
-        case _ => findAllNew()
-      }
+      findAllNew() // Call shadow read method
+      puzzleColl.find($empty).list[Puzzle]()
+    }
+
+    def findAllHash(): Fu[List[PuzzleHash]] = {
+      puzzleHashColl.find($empty).list[PuzzleHash]()
     }
 
     // Read
     def latest(nb: Int): Fu[List[Puzzle]] = {
-      useOldDatastore match {
-        case true => puzzleColl.find($empty)
-          .sort($doc(F.date -> -1))
-          .cursor[Puzzle]()
-          .gather[List](nb)
-        case _ => newLatest(nb)
-      }
+      newLatest(nb) // Call shadow read method
+      puzzleColl.find($empty)
+        .sort($doc(F.date -> -1))
+        .cursor[Puzzle]()
+        .gather[List](nb)
     }
 
     // Shadow read
@@ -144,8 +140,8 @@ final class PuzzleApi(
     }
 
     def insertPuzzleToOld(puzzle: Puzzle): Fu[PuzzleId] = {
-      useOldDatastore match {
-        case true => {
+      (useOldDatastore, useHashDatastore) match {
+        case (true, _) => {
           lila.db.Util findNextId puzzleColl flatMap { id =>
             val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
             puzzleColl.exists($doc(
@@ -154,6 +150,17 @@ final class PuzzleApi(
             )) flatMap {
               case false => puzzleColl insert puzzle inject id
               case _ => fufail(s"Duplicate puzzle $fenStart")
+            }
+          }
+        }
+        case (_, true) => {
+          lila.db.Util findNextId puzzleHashColl flatMap { id =>
+            val puzzleHash = new PuzzleHash(puzzle.id, puzzle.hash)
+            puzzleHashColl.exists($doc(
+              F.id -> puzzle.id.toString
+            )) flatMap {
+              case false => puzzleHashColl insert puzzleHash inject id
+              case _ => fufail(s"Duplicate puzzle")
             }
           }
         }
@@ -181,9 +188,9 @@ final class PuzzleApi(
     def shadowWriteConsistencyChecker(puzzle: Puzzle): Int = {
       var inconsistency = 0
 
-      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
-
       val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+
+      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
 
       (oldData contains puzzle, newData contains puzzle) match {
         case (true, false) | (false, true) => inconsistency = 1
@@ -210,30 +217,49 @@ final class PuzzleApi(
       //Track inconsistencies
       var inconsistencies = 0
 
-      //Get data from the old table
-      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+      (useOldDatastore, useHashDatastore) match {
+        case (true, _) => {
+          //Get data from the old table
+          val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
 
-      //Get data from the new table
-      var newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+          //Get data from the new table
+          val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
 
-      //For each puzzle data in the old data, check that it matches the new data
-      //For every puzzle in old data,
-      //check that that puzzle id exists in new table with the correct game id
-      var a = 0
-      for (a <- oldData.indices) {
-        val item = oldData(a)
-        if (!(newData contains item)) {
-          Await.result(insertPuzzleToNew(item), Duration.create(5, "seconds"))
-          inconsistencies += 1
+          //For each puzzle data in the old data, check that it matches the new data
+          //For every puzzle in old data,
+          //check that that puzzle id exists in new table with the correct game id
+          var a = 0
+          for (a <- oldData.indices) {
+            val item = oldData(a)
+            if (!(newData contains item)) {
+              insertPuzzleToNew(item)
+              inconsistencies += 1
+            }
+          }
         }
+        case (_, true) => {
+          val oldHashes = Await.result(fetchAllHash(), Duration.create(5, "seconds"))
+          val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+          val newDataHashed = newData.map { data => data.hash }
+
+          var a = 0
+          for (a <- oldHashes.indices) {
+            val item = oldHashes(a)
+            if (!(newDataHashed contains item)) {
+              inconsistencies += 1
+            }
+          }
+        }
+        case _ => println("Invalid options")
       }
+
       inconsistencies
     }
 
     def forklift(): Unit = {
       //get old data
       // assume moving the entire old db
-      val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
+      var oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
 
       //move all the old data to the new database
       for (a <- oldData.indices) {
@@ -241,8 +267,12 @@ final class PuzzleApi(
       }
     }
 
-    def fetchAll(): Future[List[Puzzle]] = for {
+    def fetchAll(): Fu[List[Puzzle]] = for {
       oldData <- findAll()
+    } yield oldData
+
+    def fetchAllHash(): Fu[List[PuzzleHash]] = for {
+      oldData <- findAllHash()
     } yield oldData
 
     def fetchAllNew(): Future[List[Puzzle]] = for {
