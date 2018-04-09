@@ -20,34 +20,44 @@ final class PuzzleApi(
 ) {
 
   import Puzzle.puzzleBSONHandler
+  var useOldDatastore = true
 
   object puzzle {
 
     // Read
     def find(id: PuzzleId): Fu[Option[Puzzle]] = {
       newFind(id) // Call shadow read method
-      puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
+      useOldDatastore match {
+        case true => puzzleColl.find($doc(F.id -> id)).uno[Puzzle]
+        case _ => newFind(id)
+      }
     }
 
     // Read
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] = {
-      newFindMany(ids) // Call shadow read method
-      puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
+      useOldDatastore match {
+        case true => puzzleColl.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id)
+        case _ => newFindMany(ids)
+      }
     }
 
     // Read
     def findAll(): Fu[List[Puzzle]] = {
-      findAllNew() // Call shadow read method
-      puzzleColl.find($empty).list[Puzzle]()
+      useOldDatastore match {
+        case true => puzzleColl.find($empty).list[Puzzle]()
+        case _ => findAllNew()
+      }
     }
 
     // Read
     def latest(nb: Int): Fu[List[Puzzle]] = {
-      newLatest(nb) // Call shadow read method
-      puzzleColl.find($empty)
-        .sort($doc(F.date -> -1))
-        .cursor[Puzzle]()
-        .gather[List](nb)
+      useOldDatastore match {
+        case true => puzzleColl.find($empty)
+          .sort($doc(F.date -> -1))
+          .cursor[Puzzle]()
+          .gather[List](nb)
+        case _ => newLatest(nb)
+      }
     }
 
     // Shadow read
@@ -99,19 +109,24 @@ final class PuzzleApi(
 
     // Write method
     def insertPuzzle(generated: Generated): Fu[PuzzleId] = {
-      lila.db.Util findNextId puzzleColl flatMap { id =>
-        val p = generated toPuzzle id
-        val fenStart = p.fen.split(' ').take(2).mkString(" ")
-        puzzleColl.exists($doc(
-          F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), "")
-        )) flatMap {
-          case false => puzzleColl insert p inject id
-          case _ => fufail(s"Duplicate puzzle $fenStart")
-        }
-      }
       // Call Shadow write method
       newInsertPuzzle(generated)
+      useOldDatastore match {
+        case true => {
+          lila.db.Util findNextId puzzleColl flatMap { id =>
+            val p = generated toPuzzle id
+            val fenStart = p.fen.split(' ').take(2).mkString(" ")
+            puzzleColl.exists($doc(
+              F.id -> $gte(puzzleIdMin),
+              F.fen.$regex(fenStart.replace("/", "\\/"), "")
+            )) flatMap {
+              case false => puzzleColl insert p inject id
+              case _ => fufail(s"Duplicate puzzle $fenStart")
+            }
+          }
+        }
+        case _ => newInsertPuzzle(generated)
+      }
     }
 
     //For Puzzle
@@ -129,16 +144,22 @@ final class PuzzleApi(
     }
 
     def insertPuzzleToOld(puzzle: Puzzle): Fu[PuzzleId] = {
-      lila.db.Util findNextId puzzleColl flatMap { id =>
-        puzzleColl insert puzzle inject id
-        /*val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
-        puzzleColl.exists($doc(
-          F.id -> $gte(puzzleIdMin),
-          F.fen.$regex(fenStart.replace("/", "\\/"), "")
-        )) flatMap {
-          case false => puzzleColl insert puzzle inject id
-          case _ => fufail(s"Duplicate puzzle $fenStart")
-        }*/
+      useOldDatastore match {
+        case true => {
+          lila.db.Util findNextId puzzleColl flatMap { id =>
+            val fenStart = puzzle.fen.split(' ').take(2).mkString(" ")
+            puzzleColl.exists($doc(
+              F.id -> $gte(puzzleIdMin),
+              F.fen.$regex(fenStart.replace("/", "\\/"), "")
+            )) flatMap {
+              case false => puzzleColl insert puzzle inject id
+              case _ => fufail(s"Duplicate puzzle $fenStart")
+            }
+          }
+        }
+        case _ => {
+          insertPuzzleToNew(puzzle)
+        }
       }
     }
 
@@ -164,9 +185,10 @@ final class PuzzleApi(
 
       val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
 
-      if (oldData contains puzzle)
-        if (!(newData contains puzzle))
-          inconsistency = 1
+      (oldData contains puzzle, newData contains puzzle) match {
+        case (true, false) | (false, true) => inconsistency = 1
+        case _ => inconsistency = 0
+      }
 
       inconsistency
     }
@@ -192,7 +214,7 @@ final class PuzzleApi(
       val oldData = Await.result(fetchAll(), Duration.create(5, "seconds"))
 
       //Get data from the new table
-      val newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
+      var newData = Await.result(fetchAllNew(), Duration.create(5, "seconds"))
 
       //For each puzzle data in the old data, check that it matches the new data
       //For every puzzle in old data,
@@ -201,7 +223,7 @@ final class PuzzleApi(
       for (a <- oldData.indices) {
         val item = oldData(a)
         if (!(newData contains item)) {
-          insertPuzzleToNew(item)
+          Await.result(insertPuzzleToNew(item), Duration.create(5, "seconds"))
           inconsistencies += 1
         }
       }
@@ -215,7 +237,7 @@ final class PuzzleApi(
 
       //move all the old data to the new database
       for (a <- oldData.indices) {
-        insertPuzzleToNew(oldData(a))
+        Await.result(insertPuzzleToNew(oldData(a)), Duration.create(5, "seconds"))
       }
     }
 
