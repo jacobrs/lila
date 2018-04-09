@@ -178,8 +178,10 @@ final class PuzzleApi(
 
       val newData = Await.result(newFind(id), Duration.create(5, "seconds"))
 
-      if (oldData != newData)
+      if (oldData != newData) {
         inconsistency = 1
+        insertPuzzleToNew(oldData.get)
+      }
 
       inconsistency
     }
